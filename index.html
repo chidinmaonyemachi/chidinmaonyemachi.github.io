@@ -48,6 +48,14 @@
     .hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:42px;color:var(--muted);font-size:13px}
     .hero-meta span:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#45c78b;margin:0 9px 1px 0}
     .section-head{max-width:680px;margin-bottom:34px}.section-head p,.copy{color:var(--muted)}
+
+    .hero-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(230px,.65fr);gap:42px;align-items:center}
+    .profile-frame{width:min(100%,330px);justify-self:end;aspect-ratio:4/5;overflow:hidden;border-radius:28px;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--surface-2)}
+    .profile-frame img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
+    .project-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:13px;font-weight:700}
+    .project-links a{color:var(--accent)}
+    .project-links a:hover{text-decoration:underline}
+    @media(max-width:800px){.hero-layout{grid-template-columns:1fr}.profile-frame{justify-self:start;width:min(72%,290px);grid-row:1}}
     .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:start}
     .panel,.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
     .panel{padding:26px}.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -97,15 +105,18 @@
 
 <main>
   <section class="hero" id="home">
-    <div class="wrap">
-      <div class="eyebrow">Data Analytics · Business Intelligence</div>
-      <h1>Turning data into <span class="gradient">clear decisions.</span></h1>
-      <p class="lead">I'm Chidinma Onyemachi, a Data Analyst interested in transforming raw data into meaningful insights, practical reports and clear visual stories that support better decisions.</p>
-      <div class="actions">
-        <a class="btn primary" href="#projects">Explore my projects ↗</a>
-        <a class="btn secondary" href="#contact">Get in touch</a>
+    <div class="wrap hero-layout">
+      <div>
+        <div class="eyebrow">Data Analytics · Business Intelligence</div>
+        <h1>Turning data into <span class="gradient">clear decisions.</span></h1>
+        <p class="lead">I'm Chidinma Onyemachi, a Data Analyst interested in transforming raw data into meaningful insights, practical reports and clear visual stories that support better decisions.</p>
+        <div class="actions">
+          <a class="btn primary" href="#projects">Explore my projects ↗</a>
+          <a class="btn secondary" href="#contact">Get in touch</a>
+        </div>
+        <div class="hero-meta"><span>Power BI & reporting</span><span>SQL & data analysis</span><span>Open to early-career opportunities</span></div>
       </div>
-      <div class="hero-meta"><span>Power BI & reporting</span><span>SQL & data analysis</span><span>Open to early-career opportunities</span></div>
+      <div class="profile-frame"><img src="assets/profile.jpg" alt="Professional portrait of Chidinma Onyemachi"></div>
     </div>
   </section>
 
@@ -148,16 +159,7 @@
   <section id="projects">
     <div class="wrap">
       <div class="section-head"><div class="eyebrow">Selected work</div><h2>Projects & case studies</h2><p>A selection of analytical projects across different domains. Each project can be expanded with a dashboard image, dataset, methodology and full findings.</p></div>
-      <div class="projects-grid">
-        <article class="card project"><div class="project-top"><span class="project-type">Healthcare analytics</span><span>01</span></div><h3>HealthConnect Clinic Experience</h3><p>Explored appointment attendance, reminder coverage and no-show patterns to identify areas for improving clinic operations and patient engagement.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">Excel</span><span class="tag">Data analysis</span></div></article>
-        <article class="card project"><div class="project-top"><span class="project-type">Telecommunications</span><span>02</span></div><h3>Customer Churn Analysis</h3><p>Investigated customer churn patterns and compared retention across service and contract groups to surface potential retention priorities.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Customer analytics</span></div></article>
-        <article class="card project"><div class="project-top"><span class="project-type">Retail analytics</span><span>03</span></div><h3>Superstore Sales & Profitability</h3><p>Analysed sales and profit performance across product categories, customer segments and regions to highlight business performance patterns.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">Excel</span><span class="tag">Visualisation</span></div></article>
-        <article class="card project"><div class="project-top"><span class="project-type">Food & economics</span><span>04</span></div><h3>Food Price & Inflation Analysis</h3><p>Explored food price trends across Nigerian states and commodities, preserving the source units to support accurate comparisons.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">Data cleaning</span><span class="tag">Time trends</span></div></article>
-        <article class="card project"><div class="project-top"><span class="project-type">Energy & utilities</span><span>05</span></div><h3>DISCO Power Supply Analysis</h3><p>Portfolio project examining electricity distribution and supply patterns, with a focus on turning operational data into accessible insights.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">Reporting</span></div></article>
-        <article class="card project"><div class="project-top"><span class="project-type">Operations analytics</span><span>06</span></div><h3>Food Delivery Orders</h3><p>Analysed food delivery order data as a business case study, exploring order patterns and opportunities for operational improvement.</p><div class="tags"><span class="tag">Excel</span><span class="tag">SQL</span><span class="tag">Analysis</span></div></article>
-        <article class="card project"><div class="project-top"><span class="project-type">Public health</span><span>07</span></div><h3>Health Facility Distribution</h3><p>Explored the distribution of health facilities to support an understanding of geographic coverage and service access.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">Geospatial data</span></div></article>
-        <article class="card project"><div class="project-top"><span class="project-type">E-commerce</span><span>08</span></div><h3>E-commerce Returns Analysis</h3><p>Portfolio case study focused on product returns and the patterns that can inform customer experience and business operations.</p><div class="tags"><span class="tag">SQL</span><span class="tag">Excel</span><span class="tag">Business analysis</span></div></article>
-      </div>
+      <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
       <p class="note">Project descriptions are concise portfolio summaries. Add verified dashboard screenshots, repository links and detailed findings before using each project as a formal case study.</p>
     </div>
   </section>
@@ -198,7 +200,6 @@
           </div>
         </div>
       </div>
-      <p class="note">Before publishing, replace YOUR_EMAIL@example.com with your preferred professional email address.</p>
     </div>
   </section>
 </main>
@@ -218,6 +219,27 @@
   });
   document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navlinks').classList.toggle('open'));
   document.querySelectorAll('#navlinks a').forEach(a => a.addEventListener('click', () => document.getElementById('navlinks').classList.remove('open')));
+
+  // Project cards are managed in projects.js. Add, edit or remove items there.
+  const projectsGrid = document.getElementById('projectsGrid');
+  if (projectsGrid && Array.isArray(window.portfolioProjects)) {
+    projectsGrid.innerHTML = window.portfolioProjects.map((project, index) => {
+      const tags = (project.tools || []).map(tool => `<span class="tag">${escapeHTML(tool)}</span>`).join('');
+      const links = [
+        project.githubUrl ? `<a href="${escapeAttr(project.githubUrl)}" target="_blank" rel="noreferrer">GitHub repository ↗</a>` : '',
+        project.dashboardUrl ? `<a href="${escapeAttr(project.dashboardUrl)}" target="_blank" rel="noreferrer">Dashboard ↗</a>` : '',
+        project.caseStudyUrl ? `<a href="${escapeAttr(project.caseStudyUrl)}" target="_blank" rel="noreferrer">Case study ↗</a>` : ''
+      ].filter(Boolean).join('');
+      const image = project.image ? `<img src="${escapeAttr(project.image)}" alt="${escapeAttr(project.title)} dashboard screenshot" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-bottom:18px">` : '';
+      return `<article class="card project">${image}<div class="project-top"><span class="project-type">${escapeHTML(project.category || 'Data analytics')}</span><span>${String(index + 1).padStart(2,'0')}</span></div><h3>${escapeHTML(project.title || 'Untitled project')}</h3><p>${escapeHTML(project.description || '')}</p><div class="tags">${tags}</div>${links ? `<div class="project-links">${links}</div>` : ''}</article>`;
+    }).join('');
+  }
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  }
+  function escapeAttr(value) {
+    return escapeHTML(value);
+  }
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
