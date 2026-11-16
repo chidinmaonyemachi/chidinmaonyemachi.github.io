@@ -93,7 +93,7 @@
       <a class="brand" href="#home">Chidinma<span>.</span></a>
       <div class="navlinks" id="navlinks">
         <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
-        <a href="#certifications">Certifications</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+        <a href="#certifications">Certifications</a><a href="#experience" hidden>Experience</a><a href="#contact">Contact</a>
       </div>
       <div style="display:flex;gap:8px">
         <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">☼ Light</button>
@@ -178,7 +178,7 @@
     </div>
   </section>
 
-  <section id="experience">
+  <section id="experience" hidden>
     <div class="wrap">
       <div class="section-head"><div class="eyebrow">Professional background</div><h2>Experience</h2><p>Practical experience and applied learning relevant to data, reporting and operations.</p></div>
       <div class="timeline">
@@ -220,27 +220,9 @@
   document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navlinks').classList.toggle('open'));
   document.querySelectorAll('#navlinks a').forEach(a => a.addEventListener('click', () => document.getElementById('navlinks').classList.remove('open')));
 
-  // Project cards are managed in projects.js. Add, edit or remove items there.
-  const projectsGrid = document.getElementById('projectsGrid');
-  if (projectsGrid && Array.isArray(window.portfolioProjects)) {
-    projectsGrid.innerHTML = window.portfolioProjects.map((project, index) => {
-      const tags = (project.tools || []).map(tool => `<span class="tag">${escapeHTML(tool)}</span>`).join('');
-      const links = [
-        project.githubUrl ? `<a href="${escapeAttr(project.githubUrl)}" target="_blank" rel="noreferrer">GitHub repository ↗</a>` : '',
-        project.dashboardUrl ? `<a href="${escapeAttr(project.dashboardUrl)}" target="_blank" rel="noreferrer">Dashboard ↗</a>` : '',
-        project.caseStudyUrl ? `<a href="${escapeAttr(project.caseStudyUrl)}" target="_blank" rel="noreferrer">Case study ↗</a>` : ''
-      ].filter(Boolean).join('');
-      const image = project.image ? `<img src="${escapeAttr(project.image)}" alt="${escapeAttr(project.title)} dashboard screenshot" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-bottom:18px">` : '';
-      return `<article class="card project">${image}<div class="project-top"><span class="project-type">${escapeHTML(project.category || 'Data analytics')}</span><span>${String(index + 1).padStart(2,'0')}</span></div><h3>${escapeHTML(project.title || 'Untitled project')}</h3><p>${escapeHTML(project.description || '')}</p><div class="tags">${tags}</div>${links ? `<div class="project-links">${links}</div>` : ''}</article>`;
-    }).join('');
-  }
-  function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-  }
-  function escapeAttr(value) {
-    return escapeHTML(value);
-  }
   document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 <script src="portfolio.js"></script>
 </body>
 </html>
