@@ -1,0 +1,204 @@
+
+media:
+  input: assets/uploads
+  output: /assets/uploads
+  categories:
+    - image
+  extensions:
+    - jpg
+    - jpeg
+    - png
+    - webp
+
+content:
+  - name: profile
+    label: Profile
+    type: file
+    path: data/profile.json
+    format: json
+    fields:
+      - name: name
+        label: Full name
+        type: string
+      - name: headline
+        label: Professional headline
+        type: string
+      - name: biography
+        label: About me
+        type: text
+      - name: photo
+        label: Profile photograph
+        type: image
+      - name: location
+        label: Location
+        type: string
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: content/projects
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Project title
+        type: string
+      - name: category
+        label: Category
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: tools
+        label: Tools and technologies
+        type: string
+        list: true
+      - name: image
+        label: Project screenshot
+        type: image
+      - name: githubUrl
+        label: GitHub URL
+        type: string
+      - name: dashboardUrl
+        label: Dashboard URL
+        type: string
+      - name: caseStudyUrl
+        label: Case study URL
+        type: string
+      - name: featured
+        label: Feature on homepage
+        type: boolean
+      - name: published
+        label: Published
+        type: boolean
+
+  - name: skills
+    label: Skills
+    type: file
+    path: data/skills.json
+    format: json
+    list:
+      type: string
+    fields:
+      - name: name
+        label: Skill name
+        type: string
+      - name: category
+        label: Skill category
+        type: string
+      - name: proficiency
+        label: Proficiency
+        type: string
+
+  - name: certifications
+    label: Certifications
+    type: collection
+    path: content/certifications
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: name
+    fields:
+      - name: name
+        label: Certificate name
+        type: string
+      - name: issuer
+        label: Issuing organisation
+        type: string
+      - name: date
+        label: Date obtained
+        type: date
+      - name: credentialUrl
+        label: Credential URL
+        type: string
+      - name: image
+        label: Certificate image
+        type: image
+
+  - name: experience
+    label: Experience
+    type: collection
+    path: content/experience
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: employer
+    fields:
+      - name: employer
+        label: Employer
+        type: string
+      - name: role
+        label: Job title
+        type: string
+      - name: startDate
+        label: Start date
+        type: date
+      - name: endDate
+        label: End date
+        type: date
+      - name: current
+        label: Current position
+        type: boolean
+      - name: responsibilities
+        label: Responsibilities
+        type: text
+      - name: achievements
+        label: Achievements
+        type: text
+
+  - name: contact
+    label: Contact details
+    type: file
+    path: data/contact.json
+    format: json
+    fields:
+      - name: email
+        label: Professional email
+        type: string
+      - name: linkedin
+        label: LinkedIn URL
+        type: string
+      - name: github
+        label: GitHub URL
+        type: string
+      - name: tableau
+        label: Tableau Public URL
+        type: string
+      - name: otherLinks
+        label: Other links
+        type: string
+        list: true
+
+  - name: settings
+    label: Website settings
+    type: file
+    path: data/settings.json
+    format: json
+    fields:
+      - name: showAbout
+        label: Show About section
+        type: boolean
+      - name: showProjects
+        label: Show Projects section
+        type: boolean
+      - name: showSkills
+        label: Show Skills section
+        type: boolean
+      - name: showCertifications
+        label: Show Certifications section
+        type: boolean
+      - name: showExperience
+        label: Show Experience section
+        type: boolean
+      - name: showContact
+        label: Show Contact section
+        type: boolean
+      - name: introduction
+        label: Homepage introduction
+        type: text
+
+settings:
+  content:
+    merge: true
