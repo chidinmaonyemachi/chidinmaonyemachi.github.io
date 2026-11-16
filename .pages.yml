@@ -74,13 +74,15 @@ content:
         label: Published
         type: boolean
 
-  
+    
   - name: skills
     label: Skills
-    type: file
-    path: data/skills.json
+    type: collection
+    path: content/skills
     format: json
-    list: true
+    filename: "{primary}.json"
+    view:
+      primary: name
     fields:
       - name: name
         label: Skill name
@@ -91,6 +93,7 @@ content:
       - name: proficiency
         label: Proficiency
         type: string
+
 
 
   - name: certifications
