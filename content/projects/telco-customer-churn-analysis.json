@@ -1,0 +1,13 @@
+{
+  "title": "Telco Customer Churn Analysis",
+  "category": "Customer Analytics",
+  "description": "Analysed customer churn patterns to identify factors associated with customer attrition and retention.",
+  "tools": [
+    "Power BI",
+    "DAX"
+  ],
+  "image": "/assets/uploads/adv sales 3.png",
+  "githubUrl": "https://github.com/chidinmaonyemachi/telco-customer-churn-analysis",
+  "featured": true,
+  "published": true
+}
