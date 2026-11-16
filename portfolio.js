@@ -305,7 +305,12 @@ async function loadCollection(tree, folder) {
     })
   );
 
-  return records.filter(Boolean);
+  // Pages CMS entries may be stored as one object or as an array of records.
+  // Flatten both shapes so projects and certifications render consistently.
+  return records
+    .filter(Boolean)
+    .flatMap(record => Array.isArray(record) ? record : [record])
+    .filter(Boolean);
 }
 
 async function loadPortfolio() {
