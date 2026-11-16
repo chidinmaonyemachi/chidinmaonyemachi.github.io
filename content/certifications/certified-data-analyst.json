@@ -1,6 +1,10 @@
-{
-  "name": "Certified Data Analyst",
-  "issuer": "DataSimHQ",
-  "date": "2026-10-15",
-  "image": "/assets/uploads/datasimhq-certified-data-analyst-DSHQ-2026-00003.png"
-}
+
+[
+  {
+    "name": "Certified Data Analyst",
+    "issuer": "DataSimHQ",
+    "date": "2026-10-15",
+    "credentialUrl": "",
+    "image": "/assets/uploads/datasimhq-certified-data-analyst-DSHQ-2026-00003.png"
+  }
+]
