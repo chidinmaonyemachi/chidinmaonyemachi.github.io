@@ -33,87 +33,8 @@ content:
         label: Location
         type: string
 
-  - name: projects
-    label: Projects
-    type: file
-    path: data/projects.json
-    format: json
-    list: true
-    fields:
-      - name: title
-        label: Project title
-        type: string
-      - name: category
-        label: Category
-        type: string
-      - name: description
-        label: Description
-        type: text
-      - name: tools
-        label: Tools and technologies
-        type: string
-        list: true
-      - name: image
-        label: Project screenshot
-        type: image
-      - name: githubUrl
-        label: GitHub URL
-        type: string
-      - name: dashboardUrl
-        label: Dashboard URL
-        type: string
-      - name: caseStudyUrl
-        label: Case study URL
-        type: string
-      - name: featured
-        label: Feature on homepage
-        type: boolean
-      - name: published
-        label: Published
-        type: boolean
-
-  - name: skills
-    label: Skills
-    type: file
-    path: data/skills.json
-    format: json
-    list: true
-    fields:
-      - name: name
-        label: Skill name
-        type: string
-      - name: category
-        label: Skill category
-        type: string
-      - name: proficiency
-        label: Proficiency
-        type: string
-
-  - name: certifications
-    label: Certifications
-    type: file
-    path: data/certifications.json
-    format: json
-    list: true
-    fields:
-      - name: name
-        label: Certificate name
-        type: string
-      - name: issuer
-        label: Issuing organisation
-        type: string
-      - name: date
-        label: Date obtained
-        type: date
-      - name: credentialUrl
-        label: Credential URL
-        type: string
-      - name: image
-        label: Certificate image
-        type: image
-
   - name: contact
-    label: Contact details
+    label: Contact
     type: file
     path: data/contact.json
     format: json
@@ -162,6 +83,91 @@ content:
       - name: introduction
         label: Homepage introduction
         type: text
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: content/projects
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Project title
+        type: string
+      - name: category
+        label: Category
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: tools
+        label: Tools and technologies
+        type: string
+        list: true
+      - name: image
+        label: Project screenshot
+        type: image
+      - name: githubUrl
+        label: GitHub URL
+        type: string
+      - name: dashboardUrl
+        label: Dashboard URL
+        type: string
+      - name: caseStudyUrl
+        label: Case study URL
+        type: string
+      - name: featured
+        label: Feature on homepage
+        type: boolean
+      - name: published
+        label: Published
+        type: boolean
+
+  - name: skills
+    label: Skills
+    type: collection
+    path: content/skills
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: name
+    fields:
+      - name: name
+        label: Skill name
+        type: string
+      - name: category
+        label: Skill category
+        type: string
+      - name: proficiency
+        label: Proficiency
+        type: string
+
+  - name: certifications
+    label: Certifications
+    type: collection
+    path: content/certifications
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: name
+    fields:
+      - name: name
+        label: Certificate name
+        type: string
+      - name: issuer
+        label: Issuing organisation
+        type: string
+      - name: date
+        label: Date obtained
+        type: date
+      - name: credentialUrl
+        label: Credential URL
+        type: string
+      - name: image
+        label: Certificate image
+        type: image
 
 settings:
   content:
