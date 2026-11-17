@@ -174,25 +174,15 @@ content:
     format: json
     filename: "{primary}.json"
     view:
-      primary: name
+      primary: coreSkill
     fields:
-      - name: name
-        label: Entry title (used to identify this skill group)
+      - name: coreSkill
+        label: Core Skill
         type: string
-      - name: keySkills
-        label: Key Skills & Tools
-        type: object
+      - name: toolsUsed
+        label: Tools Used
+        type: string
         list: true
-        fields:
-          - name: skillName
-            label: Skill Name
-            type: string
-          - name: category
-            label: Category
-            type: string
-          - name: purpose
-            label: Primary Purpose
-            type: text
 
   - name: certifications
     label: Certifications
