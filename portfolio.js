@@ -112,6 +112,11 @@ function renderProfile(profile, settings) {
     photo.alt = `Professional portrait of ${profile.name || "the portfolio owner"}`;
   }
 
+  const cvLink = document.getElementById("downloadCV");
+  if (cvLink && profile.cv) {
+    cvLink.href = profile.cv;
+  }
+
   const aboutCopy = document.querySelector("#about .copy");
   if (aboutCopy && profile.biography) {
     aboutCopy.replaceChildren();
