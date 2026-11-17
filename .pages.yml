@@ -109,7 +109,7 @@ content:
         label: Detailed project overview
         type: text
       - name: businessProblem
-        label: Problem or business question
+        label: Business Problem
         type: text
       - name: objectives
         label: Project objectives
@@ -137,8 +137,22 @@ content:
         label: Additional project screenshots
         type: image
         list: true
+      - name: dashboardPages
+        label: Dashboard Pages
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: Dashboard page image
+            type: image
+          - name: description
+            label: Page detail
+            type: text
+      - name: businessValue
+        label: Business Value
+        type: text
       - name: tools
-        label: Tools and technologies
+        label: Tools & Skills
         type: string
         list: true
       - name: image
