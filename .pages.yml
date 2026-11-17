@@ -108,6 +108,10 @@ content:
       - name: businessProblem
         label: Problem or business question
         type: text
+      - name: objectives
+        label: Project objectives
+        type: text
+        list: true
       - name: dataset
         label: Dataset and scope
         type: text
