@@ -273,12 +273,7 @@ function renderCertifications(certifications) {
 
     details.appendChild(title);
 
-    const date = certification.date
-      ? new Date(`${certification.date}T00:00:00`).toLocaleDateString(
-          undefined,
-          { month: "long", year: "numeric" }
-        )
-      : "";
+    const date = certification.date || "";
 
     const issuerAndDate = [
       certification.issuer,
