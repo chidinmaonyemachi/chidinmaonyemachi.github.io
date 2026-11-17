@@ -19,7 +19,7 @@
     "I tested the dashboard and analysis across different segments to validate the findings:\nReminder Status × Appointment Type\nAppointment Type × Previous No-Show History\nPrevious No-Show History × Booking Lead Time\nThis helped me identify where interpretations needed refinement and where findings remained consistent."
   ],
   "keyFindings": [
-    "I tested the dashboard and analysis across different segments to validate the findings:\nReminder Status × Appointment Type\nAppointment Type × Previous No-Show History\nPrevious No-Show History × Booking Lead Time\nThis helped me identify where interpretations needed refinement and where findings remained consistent."
+    "Identified the most frequently recorded medical conditions and test-result patterns.\nRevealed differences in hospital activity and billing across the dataset.\nEnabled individual patient records to be explored alongside broader population patterns.\nConnected patient, operational, and financial information in one dashboard."
   ],
   "outcome": "Good analytics isn't just about finding patterns. It's about testing them, questioning them, and communicating them responsibly.",
   "githubUrl": "https://github.com/chidinmaonyemachi/HealthConnect-Appontment",
