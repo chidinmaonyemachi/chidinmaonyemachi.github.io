@@ -51,6 +51,9 @@ content:
       - name: tableau
         label: Tableau Public URL
         type: string
+      - name: youtube
+        label: YouTube URL
+        type: string
       - name: otherLinks
         label: Other links
         type: string
