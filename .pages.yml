@@ -172,12 +172,20 @@ content:
       - name: name
         label: Skill name
         type: string
-      - name: category
-        label: Skill category
-        type: string
-      - name: proficiency
-        label: Proficiency
-        type: string
+      - name: keySkills
+        label: Key Skills & Tools
+        type: object
+        list:
+          collapsible:
+            collapsed: false
+            summary: "{category}"
+        fields:
+          - name: category
+            label: Category
+            type: string
+          - name: purpose
+            label: What It's Used For
+            type: text
 
   - name: certifications
     label: Certifications
