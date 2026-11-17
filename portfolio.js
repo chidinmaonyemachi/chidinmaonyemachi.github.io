@@ -235,6 +235,8 @@ function renderSkills(skills) {
       });
       table.appendChild(tbody);
       card.appendChild(table);
+    } else if (skill.category) {
+      card.appendChild(element("p", "", skill.category));
     }
 
     container.appendChild(card);
