@@ -102,6 +102,34 @@ content:
       - name: description
         label: Description
         type: text
+      - name: overview
+        label: Detailed project overview
+        type: text
+      - name: businessProblem
+        label: Problem or business question
+        type: text
+      - name: dataset
+        label: Dataset and scope
+        type: text
+      - name: methodology
+        label: Methodology and workflow
+        type: text
+        list: true
+      - name: keyFindings
+        label: Key findings
+        type: text
+        list: true
+      - name: recommendations
+        label: Recommendations
+        type: text
+        list: true
+      - name: outcome
+        label: Outcome and learning
+        type: text
+      - name: additionalImages
+        label: Additional project screenshots
+        type: image
+        list: true
       - name: tools
         label: Tools and technologies
         type: string
@@ -165,6 +193,13 @@ content:
       - name: credentialUrl
         label: Credential URL
         type: string
+      - name: description
+        label: Certificate description
+        type: text
+      - name: skillsGained
+        label: Skills or topics covered
+        type: string
+        list: true
       - name: image
         label: Certificate image
         type: image
