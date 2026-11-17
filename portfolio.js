@@ -204,7 +204,7 @@ function renderProjects(projects) {
   });
 }
 
-function renderSkills(skills, excelKeySkills = []) {
+function renderSkills(skills) {
   const container = document.querySelector("#skills .skills-grid");
   if (!container) return;
 
@@ -214,30 +214,30 @@ function renderSkills(skills, excelKeySkills = []) {
     const card = element("article", "card skill-card");
     card.appendChild(element("h3", "", skill.name || "Skill"));
 
-    if ((skill.name || "").toLowerCase() === "microsoft excel") {
-      if (excelKeySkills.length) {
-        const table = element("table", "skill-details");
-        const thead = element("thead");
-        const headerRow = element("tr");
-        headerRow.appendChild(element("th", "", "Category"));
-        headerRow.appendChild(element("th", "", "What It's Used For"));
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
+    const keySkills = Array.isArray(skill.keySkills) ? skill.keySkills : [];
+    if (keySkills.length) {
+      const table = element("table", "skill-details");
+      const thead = element("thead");
+      const headerRow = element("tr");
+      headerRow.appendChild(element("th", "", "Category"));
+      headerRow.appendChild(element("th", "", "Primary Purpose"));
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
 
-        const tbody = element("tbody");
-        excelKeySkills.forEach(entry => {
-          if (!entry || (!entry.category && !entry.purpose)) return;
-          const row = element("tr");
-          row.appendChild(element("td", "", entry.category || ""));
-          row.appendChild(element("td", "", entry.purpose || ""));
-          tbody.appendChild(row);
-        });
-        table.appendChild(tbody);
-        card.appendChild(table);
-      }
-    } else {
-      const details = [skill.category, skill.proficiency].filter(Boolean).join(" · ");
-      if (details) card.appendChild(element("p", "", details));
+      const tbody = element("tbody");
+      keySkills.forEach(entry => {
+        if (!entry || (!entry.category && !entry.purpose)) return;
+        const row = element("tr");
+        row.appendChild(element("td", "", entry.category || ""));
+        row.appendChild(element("td", "", entry.purpose || ""));
+        tbody.appendChild(row);
+      });
+      table.appendChild(tbody);
+      card.appendChild(table);
+    }
+
+    if (skill.proficiency) {
+      card.appendChild(element("p", "skill-proficiency", `Proficiency: ${skill.proficiency}`));
     }
 
     container.appendChild(card);
@@ -372,20 +372,16 @@ async function loadPortfolio() {
 
     const tree = repositoryTree.tree || [];
 
-    const [projects, skills, certifications, excelKeySkills] = await Promise.all([
+    const [projects, skills, certifications] = await Promise.all([
       loadCollection(tree, "content/projects"),
       loadCollection(tree, "content/skills"),
-      loadCollection(tree, "content/certifications"),
-      getJSON(`${RAW_ROOT}/data/excel-key-skills.json`).catch(error => {
-        console.error("Could not load Microsoft Excel key skills", error);
-        return [];
-      })
+      loadCollection(tree, "content/certifications")
     ]);
 
     setSectionVisibility(settings);
     renderProfile(profile, settings);
     renderProjects(projects);
-    renderSkills(skills, Array.isArray(excelKeySkills) ? excelKeySkills : []);
+    renderSkills(skills);
     renderCertifications(certifications);
     renderContact(contact);
 
