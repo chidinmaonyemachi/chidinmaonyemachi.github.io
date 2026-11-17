@@ -102,9 +102,6 @@ content:
       - name: category
         label: Category
         type: string
-      - name: description
-        label: Description
-        type: text
       - name: overview
         label: Detailed project overview
         type: text
@@ -137,10 +134,6 @@ content:
       - name: outcome
         label: Outcome and learning
         type: text
-      - name: additionalImages
-        label: Additional project screenshots
-        type: image
-        list: true
       - name: dashboardPages
         label: Dashboard Pages
         type: object
