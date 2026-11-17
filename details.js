@@ -7,6 +7,7 @@ function addSection(container,title,value,full=false){if(!value||(!Array.isArray
 function addAction(container,label,url,primary=false){const href=safeURL(url);if(!href)return;const a=node("a",primary?"btn primary":"btn",label);a.href=href;a.target="_blank";a.rel="noreferrer";container.appendChild(a);}
 function addPreview(container,src,alt,caption,isCert=false){const url=safeURL(src);if(!url){const empty=node("div","no-image",isCert?"Certificate image has not been added yet.":"Dashboard screenshot has not been added yet.");container.appendChild(empty);return;}const frame=node("div",isCert?"preview cert-preview":"preview");const image=node("img");image.src=url;image.alt=alt;image.loading="eager";image.addEventListener("click",()=>window.open(url,"_blank","noopener,noreferrer"));image.addEventListener("error",()=>{frame.replaceChildren(node("div","no-image","The image could not be loaded. Please check the image in Pages CMS."));});frame.appendChild(image);frame.appendChild(node("p","preview-caption",caption));container.appendChild(frame);}
 function addGallery(container,images){const valid=images.map(safeURL).filter(Boolean);if(!valid.length)return;const box=node("section","detail-section full");box.appendChild(node("h2","","Additional project visuals"));const gallery=node("div","gallery");valid.forEach((url,index)=>{const link=node("a");link.href=url;link.target="_blank";link.rel="noreferrer";const image=node("img");image.src=url;image.alt=`Additional project visual ${index+1}`;image.loading="lazy";link.appendChild(image);gallery.appendChild(link);});box.appendChild(gallery);container.appendChild(box);}
+function addDashboardPages(container,pages){if(!Array.isArray(pages)||!pages.length)return;const box=node("section","detail-section full");box.appendChild(node("h2","","Dashboard Pages"));const gallery=node("div","gallery");pages.forEach((page,index)=>{if(!page)return;const card=node("article","dashboard-page");const url=safeURL(page.image);if(url){const link=node("a");link.href=url;link.target="_blank";link.rel="noreferrer";const image=node("img");image.src=url;image.alt=`Dashboard page ${index+1}`;image.loading="lazy";link.appendChild(image);card.appendChild(link);}if(page.description)card.appendChild(node("p","preview-caption",page.description));if(card.children.length)gallery.appendChild(card);});if(gallery.children.length){box.appendChild(gallery);container.appendChild(box);}}
 function addTags(container,title,items){if(!Array.isArray(items)||!items.length)return;const box=node("section","detail-section full");box.appendChild(node("h2","",title));const tags=node("div","tags");items.filter(Boolean).forEach(item=>tags.appendChild(node("span","tag",String(item))));if(tags.children.length){box.appendChild(tags);container.appendChild(box);}}
 async function load(){
   if(!slug||!["project","certification"].includes(type))throw new Error("This detail page link is incomplete.");
@@ -32,7 +33,9 @@ async function load(){
     addSection(grid,"Key findings",record.keyFindings);
     addSection(grid,"Recommendations",record.recommendations);
     addSection(grid,"Outcome and learning",record.outcome,true);
+    addSection(grid,"Business Value",record.businessValue,true);
     if(grid.children.length)root.appendChild(grid);
+    addDashboardPages(root,Array.isArray(record.dashboardPages)?record.dashboardPages:[]);
     addGallery(root,Array.isArray(record.additionalImages)?record.additionalImages:[]);
     addTags(root,"Tools and technologies",record.tools);
   }else{
