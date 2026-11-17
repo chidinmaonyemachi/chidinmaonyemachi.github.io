@@ -3,33 +3,48 @@ const API_ROOT=`https://api.github.com/repos/${OWNER}/${REPO}`,RAW_ROOT=`https:/
 const params=new URLSearchParams(location.search),type=params.get("type"),slug=params.get("slug"),root=document.getElementById("detailContent");
 function node(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
 function safeURL(value){if(typeof value!=="string"||!value.trim())return "";try{const u=new URL(value,location.origin);return ["https:","http:"].includes(u.protocol)?u.href:"";}catch(_){return "";}}
-function section(title,value,full=false){if(!value||(!Array.isArray(value)&&!String(value).trim()))return null;const box=node("section",`detail-section${full?" full":""}`);box.appendChild(node("h2","",title));if(Array.isArray(value)){const ul=node("ul");value.filter(Boolean).forEach(item=>ul.appendChild(node("li","",item)));box.appendChild(ul);}else box.appendChild(node("p","",value));return box;}
-function addAction(container,label,url){const href=safeURL(url);if(!href)return;const a=node("a","btn",label);a.href=href;a.target="_blank";a.rel="noreferrer";container.appendChild(a);}
+function addSection(container,title,value,full=false){if(!value||(!Array.isArray(value)&&!String(value).trim()))return;const box=node("section",`detail-section${full?" full":""}`);box.appendChild(node("h2","",title));if(Array.isArray(value)){const ul=node("ul");value.filter(item=>item!==null&&item!==undefined&&String(item).trim()).forEach(item=>ul.appendChild(node("li","",String(item))));if(!ul.children.length)return;box.appendChild(ul);}else box.appendChild(node("p","",String(value)));container.appendChild(box);}
+function addAction(container,label,url,primary=false){const href=safeURL(url);if(!href)return;const a=node("a",primary?"btn primary":"btn",label);a.href=href;a.target="_blank";a.rel="noreferrer";container.appendChild(a);}
+function addPreview(container,src,alt,caption,isCert=false){const url=safeURL(src);if(!url){const empty=node("div","no-image",isCert?"Certificate image has not been added yet.":"Dashboard screenshot has not been added yet.");container.appendChild(empty);return;}const frame=node("div",isCert?"preview cert-preview":"preview");const image=node("img");image.src=url;image.alt=alt;image.loading="eager";image.addEventListener("click",()=>window.open(url,"_blank","noopener,noreferrer"));image.addEventListener("error",()=>{frame.replaceChildren(node("div","no-image","The image could not be loaded. Please check the image in Pages CMS."));});frame.appendChild(image);frame.appendChild(node("p","preview-caption",caption));container.appendChild(frame);}
+function addGallery(container,images){const valid=images.map(safeURL).filter(Boolean);if(!valid.length)return;const box=node("section","detail-section full");box.appendChild(node("h2","","Additional project visuals"));const gallery=node("div","gallery");valid.forEach((url,index)=>{const link=node("a");link.href=url;link.target="_blank";link.rel="noreferrer";const image=node("img");image.src=url;image.alt=`Additional project visual ${index+1}`;image.loading="lazy";link.appendChild(image);gallery.appendChild(link);});box.appendChild(gallery);container.appendChild(box);}
+function addTags(container,title,items){if(!Array.isArray(items)||!items.length)return;const box=node("section","detail-section full");box.appendChild(node("h2","",title));const tags=node("div","tags");items.filter(Boolean).forEach(item=>tags.appendChild(node("span","tag",String(item))));if(tags.children.length){box.appendChild(tags);container.appendChild(box);}}
 async function load(){
-  if(!slug||!["project","certification"].includes(type)){throw new Error("This detail page link is incomplete.");}
-  const folder=type==="project"?"content/projects":"content/certifications";
-  const treeResponse=await fetch(`${API_ROOT}/git/trees/${BRANCH}?recursive=1`,{cache:"no-store"});if(!treeResponse.ok)throw new Error("Could not retrieve portfolio records.");const tree=await treeResponse.json();
-  const file=(tree.tree||[]).find(item=>item.type==="blob"&&item.path.startsWith(folder+"/")&&item.path.endsWith(`/${slug}.json`)&&item.path.split("/").length===3);
-  if(!file)throw new Error("The requested portfolio entry could not be found.");
-  const response=await fetch(`${RAW_ROOT}/${file.path}`,{cache:"no-store"});if(!response.ok)throw new Error("Could not load this portfolio entry.");
+  if(!slug||!["project","certification"].includes(type))throw new Error("This detail page link is incomplete.");
+  const isProject=type==="project",folder=isProject?"content/projects":"content/certifications";
+  document.getElementById("backLink").href=isProject?"index.html#projects":"index.html#certifications";
+  document.getElementById("backLink").textContent=isProject?"← Back to projects":"← Back to certifications";
+  const treeResponse=await fetch(`${API_ROOT}/git/trees/${BRANCH}?recursive=1`,{cache:"no-store"});if(!treeResponse.ok)throw new Error("Could not retrieve portfolio records. Please try again shortly.");
+  const tree=await treeResponse.json(),file=(tree.tree||[]).find(item=>item.type==="blob"&&item.path.startsWith(folder+"/")&&item.path.endsWith(`/${slug}.json`)&&item.path.split("/").length===3);
+  if(!file)throw new Error("This entry could not be found. Check that it has been saved and published in Pages CMS.");
+  const response=await fetch(`${RAW_ROOT}/${file.path}`,{cache:"no-store"});if(!response.ok)throw new Error("Could not load this entry. Please try again shortly.");
   const raw=await response.json(),record=Array.isArray(raw)?raw[0]:raw;if(!record)throw new Error("This portfolio entry is empty.");
-  const isProject=type==="project";document.title=`${record.title||record.name} | Chidinma Onyemachi`;
-  root.replaceChildren();root.appendChild(node("div","eyebrow",isProject?(record.category||"Project case study"):"Certification"));
-  root.appendChild(node("h1","",record.title||record.name||"Portfolio details"));
-  const meta=[record.issuer,record.date||""].filter(Boolean).join(" · ");
-  if(meta)root.appendChild(node("p","meta",meta));
-  if(record.image){const image=node("img","hero-image");image.src=record.image;image.alt=isProject?`${record.title} dashboard screenshot`:`${record.name} certificate preview`;root.appendChild(image);root.appendChild(node("p","image-caption",isProject?"Dashboard screenshot preview — select the image to open it at full size.":"Certificate preview — select the image to open it at full size."));image.style.cursor="zoom-in";image.addEventListener("click",()=>window.open(safeURL(record.image),"_blank","noopener"));}
+  const title=record.title||record.name||"Portfolio details";document.title=`${title} | Chidinma Onyemachi`;root.replaceChildren();
+  root.appendChild(node("div","eyebrow",isProject?(record.category||"Project case study"):"Certificate"));
+  root.appendChild(node("h1","",title));
+  const meta=node("div","meta-row");if(isProject){if(record.category)meta.appendChild(node("span","meta-chip",record.category));(Array.isArray(record.tools)?record.tools:[]).slice(0,5).forEach(tool=>meta.appendChild(node("span","meta-chip",tool)));}else{if(record.issuer)meta.appendChild(node("span","meta-chip",record.issuer));if(record.date)meta.appendChild(node("span","meta-chip",record.date));}
+  if(meta.children.length)root.appendChild(meta);
+  const summary=isProject?(record.overview||record.description):record.description;if(summary)root.appendChild(node("p","intro",summary));
+  addPreview(root,record.image,isProject?`${title} dashboard screenshot`:`${title} certificate preview`,isProject?"Dashboard preview · Select the image to view it at full size.":"Certificate preview · Select the image to view it at full size.",!isProject);
   const grid=node("div","detail-grid");
   if(isProject){
-    [["Project overview",record.overview||record.description,true],["Problem or business question",record.businessProblem,false],["Dataset and scope",record.dataset,false],["Project objectives",record.objectives,false],["Methodology and workflow",record.methodology,false],["Key findings",record.keyFindings,false],["Recommendations",record.recommendations,false],["Outcome and learning",record.outcome,false]].forEach(([title,value,full])=>{const s=section(title,value,full);if(s)grid.appendChild(s);});
-    if(Array.isArray(record.additionalImages)&&record.additionalImages.length){const s=node("section","detail-section full");s.appendChild(node("h2","","Additional project visuals"));const list=node("div","tags");record.additionalImages.forEach(src=>{const a=node("a","btn","Open image ↗");a.href=safeURL(src)||"#";a.target="_blank";a.rel="noreferrer";list.appendChild(a);});s.appendChild(list);grid.appendChild(s);}
-    if(Array.isArray(record.tools)&&record.tools.length){const s=node("section","detail-section full");s.appendChild(node("h2","","Tools and technologies"));const tags=node("div","tags");record.tools.forEach(tool=>tags.appendChild(node("span","tag",tool)));s.appendChild(tags);grid.appendChild(s);}
+    addSection(grid,"Business problem",record.businessProblem);
+    addSection(grid,"Dataset and scope",record.dataset);
+    addSection(grid,"Project objectives",record.objectives);
+    addSection(grid,"Methodology and workflow",record.methodology);
+    addSection(grid,"Key findings",record.keyFindings);
+    addSection(grid,"Recommendations",record.recommendations);
+    addSection(grid,"Outcome and learning",record.outcome,true);
+    if(grid.children.length)root.appendChild(grid);
+    addGallery(root,Array.isArray(record.additionalImages)?record.additionalImages:[]);
+    addTags(root,"Tools and technologies",record.tools);
   }else{
-    [["About this certification",record.description,true],["Skills and topics covered",record.skillsGained,false]].forEach(([title,value,full])=>{const s=section(title,value,full);if(s)grid.appendChild(s);});
+    addSection(grid,"About this certification",record.description,true);
+    addSection(grid,"Skills and topics covered",record.skillsGained,true);
+    if(grid.children.length)root.appendChild(grid);
   }
-  if(grid.children.length)root.appendChild(grid);
-  const actions=node("div","actions");if(isProject){addAction(actions,"GitHub repository ↗",record.githubUrl);addAction(actions,"Open dashboard ↗",record.dashboardUrl);addAction(actions,"External case study ↗",record.caseStudyUrl);}else addAction(actions,"Verify credential ↗",record.credentialUrl);
+  const actions=node("div","actions");
+  if(isProject){addAction(actions,"View GitHub repository ↗",record.githubUrl,true);addAction(actions,"Open live dashboard ↗",record.dashboardUrl);addAction(actions,"Read full case study ↗",record.caseStudyUrl);}
+  else addAction(actions,"Verify credential ↗",record.credentialUrl,true);
   if(actions.children.length)root.appendChild(actions);
-  if(!grid.children.length&&!record.image&&!actions.children.length)root.appendChild(node("p","meta","More information for this entry will appear here when it is added in Pages CMS."));
 }
-load().catch(error=>{root.replaceChildren(node("h1","","Details unavailable"),node("p","error",error.message),node("a","btn","← Return to portfolio"));root.querySelector("a").href="index.html";});
+load().catch(error=>{root.replaceChildren(node("h1","","Details unavailable"),node("p","error",error.message));const back=node("a","btn","← Return to portfolio");back.href=type==="certification"?"index.html#certifications":"index.html#projects";root.appendChild(back);});
