@@ -192,8 +192,8 @@ content:
         label: Issuing organisation
         type: string
       - name: date
-        label: Date obtained
-        type: date
+        label: Date obtained (Month Year, e.g. January 2026)
+        type: string
       - name: credentialUrl
         label: Credential URL
         type: string
