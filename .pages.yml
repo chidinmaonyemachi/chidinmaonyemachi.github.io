@@ -49,7 +49,6 @@ content:
         type: file
         options:
           media: documents
-          path: assets/uploads
           extensions:
             - pdf
 
