@@ -299,6 +299,68 @@ function renderCertifications(certifications) {
   });
 }
 
+function renderExperience(experiences) {
+  const container = document.getElementById("experienceList");
+  if (!container) return;
+
+  container.replaceChildren();
+
+  const sorted = experiences
+    .filter(item => item && (item.organisation || item.role || item.description))
+    .sort((a, b) => {
+      const dateA = Date.parse(a.startDate || "") || 0;
+      const dateB = Date.parse(b.startDate || "") || 0;
+      return dateB - dateA;
+    });
+
+  sorted.forEach(item => {
+    const entry = element("article", "timeline-item");
+    entry.appendChild(element("h3", "", item.organisation || item.role || "Experience"));
+
+    if (item.role) {
+      const role = element("p", "", item.role);
+      role.style.cssText = "margin:4px 0 0;color:var(--text);font-weight:700";
+      entry.appendChild(role);
+    }
+
+    const metadata = [
+      item.employmentType,
+      item.location,
+      item.startDate,
+      item.isCurrent ? "Present" : item.endDate
+    ].filter(Boolean).join(" · ");
+
+    if (metadata) {
+      const meta = element("div", "eyebrow", metadata);
+      meta.style.cssText = "margin-top:7px;letter-spacing:.5px;text-transform:none";
+      entry.appendChild(meta);
+    }
+
+    if (item.description) {
+      const description = element("p", "", item.description);
+      description.style.whiteSpace = "pre-line";
+      entry.appendChild(description);
+    }
+
+    if (Array.isArray(item.responsibilities) && item.responsibilities.length) {
+      const list = element("ul");
+      list.style.cssText = "color:var(--muted);font-size:14px;padding-left:20px;margin:10px 0 0";
+      item.responsibilities.filter(Boolean).forEach(responsibility => {
+        list.appendChild(element("li", "", responsibility));
+      });
+      entry.appendChild(list);
+    }
+
+    if (Array.isArray(item.tools) && item.tools.length) {
+      const tags = element("div", "tags");
+      item.tools.filter(Boolean).forEach(tool => tags.appendChild(element("span", "tag", tool)));
+      entry.appendChild(tags);
+    }
+
+    container.appendChild(entry);
+  });
+}
+
 function renderContact(contact) {
   const actions = document.querySelector("#contact .actions");
   if (!actions) return;
@@ -368,16 +430,18 @@ async function loadPortfolio() {
 
     const tree = repositoryTree.tree || [];
 
-    const [projects, skills, certifications] = await Promise.all([
+    const [projects, skills, certifications, experiences] = await Promise.all([
       loadCollection(tree, "content/projects"),
       loadCollection(tree, "content/skills"),
-      loadCollection(tree, "content/certifications")
+      loadCollection(tree, "content/certifications"),
+      loadCollection(tree, "content/experience")
     ]);
 
     renderProfile(profile, settings);
     renderProjects(projects);
     renderSkills(skills);
     renderCertifications(certifications);
+    renderExperience(experiences);
     renderContact(contact);
 
     console.info("Portfolio content loaded from Pages CMS files.");
