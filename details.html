@@ -23,6 +23,6 @@
 <script>
 const root=document.documentElement,toggle=document.getElementById("themeToggle"),saved=localStorage.getItem("portfolio-theme");if(saved)root.dataset.theme=saved;function updateTheme(){toggle.textContent=root.dataset.theme==="dark"?"☼ Light":"☾ Dark"}updateTheme();toggle.addEventListener("click",()=>{root.dataset.theme=root.dataset.theme==="dark"?"light":"dark";localStorage.setItem("portfolio-theme",root.dataset.theme);updateTheme()});document.getElementById("year").textContent=new Date().getFullYear();
 </script>
-<script src="details.js"></script>
+<script src="details.js?v=20261117-1"></script>
 </body>
 </html>
