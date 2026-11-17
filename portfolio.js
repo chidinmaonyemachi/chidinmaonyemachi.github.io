@@ -215,34 +215,22 @@ function renderSkills(skills) {
 
   container.replaceChildren();
 
-  const rows = skills.filter(skill => skill && (skill.coreSkill || skill.name))
-    .map(skill => ({
-      coreSkill: skill.coreSkill || skill.name || "",
-      toolsUsed: Array.isArray(skill.toolsUsed) ? skill.toolsUsed : []
-    }))
-    .filter(skill => skill.coreSkill || skill.toolsUsed.length);
+  skills.forEach(skill => {
+    if (!skill) return;
+    const coreSkill = skill.coreSkill || skill.name || "";
+    const toolsUsed = Array.isArray(skill.toolsUsed) ? skill.toolsUsed : [];
+    if (!coreSkill && !toolsUsed.length) return;
 
-  if (!rows.length) return;
+    const card = element("article", "card skill-card");
+    card.appendChild(element("h3", "", coreSkill || "Core Skill"));
 
-  const card = element("article", "card skill-card");
-  const table = element("table", "skill-details");
-  const thead = element("thead");
-  const header = element("tr");
-  header.appendChild(element("th", "", "Core Skill"));
-  header.appendChild(element("th", "", "Tools Used"));
-  thead.appendChild(header);
-  table.appendChild(thead);
-
-  const tbody = element("tbody");
-  rows.forEach(skill => {
-    const row = element("tr");
-    row.appendChild(element("td", "", skill.coreSkill));
-    row.appendChild(element("td", "", skill.toolsUsed.join(", ")));
-    tbody.appendChild(row);
+    const tools = element("div", "skill-tools");
+    toolsUsed.forEach(tool => {
+      tools.appendChild(element("span", "tag", tool));
+    });
+    if (toolsUsed.length) card.appendChild(tools);
+    container.appendChild(card);
   });
-  table.appendChild(tbody);
-  card.appendChild(table);
-  container.appendChild(card);
 }
 function renderCertifications(certifications) {
   const container = document.querySelector("#certifications .cert-list");
