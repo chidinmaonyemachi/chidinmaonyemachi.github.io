@@ -178,20 +178,17 @@ content:
       - name: proficiency
         label: Proficiency
         type: string
-
-  - name: excelKeySkills
-    label: Microsoft Excel — Key Skills & Tools
-    type: file
-    path: data/excel-key-skills.json
-    format: json
-    list: true
-    fields:
-      - name: category
-        label: Category
-        type: string
-      - name: purpose
-        label: What It's Used For
-        type: text
+      - name: keySkills
+        label: Key Skills & Tools
+        type: object
+        list: true
+        fields:
+          - name: category
+            label: Category
+            type: string
+          - name: purpose
+            label: Primary Purpose
+            type: text
 
   - name: certifications
     label: Certifications
