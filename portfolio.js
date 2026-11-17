@@ -358,10 +358,14 @@ async function loadCollection(tree, folder) {
 
 async function loadPortfolio() {
   try {
-    const [profile, contact, settings, repositoryTree] = await Promise.all([
+    // Apply CMS section visibility as soon as settings load, independently
+    // of the other portfolio content requests.
+    const settings = await getJSON(`${RAW_ROOT}/data/settings.json`);
+    setSectionVisibility(settings);
+
+    const [profile, contact, repositoryTree] = await Promise.all([
       getJSON(`${RAW_ROOT}/data/profile.json`),
       getJSON(`${RAW_ROOT}/data/contact.json`),
-      getJSON(`${RAW_ROOT}/data/settings.json`),
       getJSON(`${API_ROOT}/git/trees/${BRANCH}?recursive=1`)
     ]);
 
@@ -377,7 +381,6 @@ async function loadPortfolio() {
       loadCollection(tree, "content/certifications")
     ]);
 
-    setSectionVisibility(settings);
     renderProfile(profile, settings);
     renderProjects(projects);
     renderSkills(skills);
