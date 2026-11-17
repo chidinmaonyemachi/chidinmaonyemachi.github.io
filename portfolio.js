@@ -181,7 +181,7 @@ function renderProjects(projects) {
       element("h3", "", project.title || "Untitled project")
     );
     card.appendChild(
-      element("p", "", project.description || project.overview || "")
+      (() => { const summary = element("p", "", project.overview || project.description || ""); summary.style.whiteSpace = "pre-line"; return summary; })()
     );
 
     const tags = element("div", "tags");
