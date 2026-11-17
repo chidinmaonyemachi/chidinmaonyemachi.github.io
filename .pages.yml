@@ -111,6 +111,10 @@ content:
       - name: businessProblem
         label: Business Problem
         type: text
+      - name: tools
+        label: Tools & Skills
+        type: string
+        list: true
       - name: objectives
         label: Project objectives
         type: text
@@ -151,10 +155,6 @@ content:
       - name: businessValue
         label: Business Value
         type: text
-      - name: tools
-        label: Tools & Skills
-        type: string
-        list: true
       - name: image
         label: Project screenshot
         type: image
