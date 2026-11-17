@@ -45,7 +45,7 @@ content:
         label: Location
         type: string
       - name: cv
-        label: Downloadable CV (PDF)
+        label: CV (PDF) — upload or replace
         type: file
         options:
           media: documents
