@@ -13,8 +13,8 @@
     "Exploratory Data Analysis (EDA)",
     "Data Cleaning and Transformation"
   ],
-  "featured": false,
-  "published": false,
+  "featured": true,
+  "published": true,
   "methodology": [
     "I tested the dashboard and analysis across different segments to validate the findings:\nReminder Status × Appointment Type\nAppointment Type × Previous No-Show History\nPrevious No-Show History × Booking Lead Time\nThis helped me identify where interpretations needed refinement and where findings remained consistent."
   ],
