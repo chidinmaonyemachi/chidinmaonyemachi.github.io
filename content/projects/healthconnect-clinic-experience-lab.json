@@ -1,0 +1,14 @@
+{
+  "title": "HealthConnect Clinic Experience Lab",
+  "category": "Healthcare Analytics",
+  "overview": "I analyzed 5,000 clinic appointment records from January 2025 to June 2026 to identify patterns associated with patient no-shows and support operational decision-making",
+  "businessProblem": "The clinic faced a high rate of missed appointments, resulting in potential inefficiencies in scheduling, underutilised healthcare resources and reduced appointment availability. The project aimed to analyse appointment patterns and identify factors associated with patient no-shows, including booking lead time, previous attendance history, appointment type and reminder status. The goal was to generate data-driven insights that could support improved appointment management, patient attendance and operational efficiency.",
+  "tools": [
+    "Microsoft Excel",
+    "Power BI",
+    "Insight Generation and Reporting",
+    "Dashboard Development"
+  ],
+  "featured": false,
+  "published": false
+}
