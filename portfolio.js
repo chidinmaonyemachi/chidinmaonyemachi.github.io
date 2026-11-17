@@ -181,7 +181,7 @@ function renderProjects(projects) {
       element("h3", "", project.title || "Untitled project")
     );
     card.appendChild(
-      element("p", "", project.description || "")
+      element("p", "", project.description || project.overview || "")
     );
 
     const tags = element("div", "tags");
