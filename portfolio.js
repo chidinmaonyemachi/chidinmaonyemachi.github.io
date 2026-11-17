@@ -212,9 +212,6 @@ function renderSkills(skills) {
 
   skills.forEach(skill => {
     const card = element("article", "card skill-card");
-    const initials = (skill.name || "S").trim().slice(0, 3);
-
-    card.appendChild(element("div", "skill-icon", initials));
     card.appendChild(element("h3", "", skill.name || "Skill"));
 
     const details = [
@@ -305,6 +302,7 @@ function renderContact(contact) {
   addLink(actions, "LinkedIn ↗", contact.linkedin);
   addLink(actions, "GitHub ↗", contact.github);
   addLink(actions, "Tableau ↗", contact.tableau);
+  addLink(actions, "YouTube ↗", contact.youtube);
 
   if (Array.isArray(contact.otherLinks)) {
     contact.otherLinks.forEach((link, index) => {
