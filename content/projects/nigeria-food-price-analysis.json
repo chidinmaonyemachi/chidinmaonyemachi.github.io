@@ -1,0 +1,29 @@
+{
+  "title": "Nigeria Food Price Analysis",
+  "category": "Food Price & Inflation Analysis",
+  "overview": "An interactive Power BI project analyzing food price trends across Nigerian states and markets using World Food Programme food price data.\n\nThe dashboard explores commodity price movements, market differences, geographic price distribution, and price volatility to help users understand food price patterns across Nigeria.",
+  "businessProblem": "Food prices vary across locations, commodities, and time. This project provides an interactive way to compare markets, track price movements, and identify areas where prices may require further investigation.",
+  "tools": [
+    "Power BI",
+    "Power Query",
+    "DAX",
+    "Data Cleaning and Transformation",
+    "Data Modeling",
+    "KPI Development",
+    "Interactive Data Visualization"
+  ],
+  "dashboardPages": [
+    {
+      "image": "/assets/uploads/food over 2.png",
+      "description": "Commodity price comparisons\nMarket price rankings\nCommodity price volatility\nWholesale–retail price differences"
+    },
+    {
+      "image": "/assets/uploads/food over 3.png",
+      "description": "State-level price comparisons\nGeographic food price distribution\nPrice trends across locations"
+    }
+  ],
+  "businessValue": "The dashboard helps users explore regional food price differences, compare commodities and markets, and identify price patterns that may inform further research and decision-making.",
+  "image": "/assets/uploads/food over 1.png",
+  "featured": true,
+  "published": true
+}
