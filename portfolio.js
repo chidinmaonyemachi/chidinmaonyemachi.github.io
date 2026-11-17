@@ -214,12 +214,29 @@ function renderSkills(skills) {
     const card = element("article", "card skill-card");
     card.appendChild(element("h3", "", skill.name || "Skill"));
 
-    const details = [
-      skill.category,
-      skill.proficiency
-    ].filter(Boolean).join(" · ");
+    const entries = Array.isArray(skill.keySkills) ? skill.keySkills : [];
 
-    card.appendChild(element("p", "", details));
+    if (entries.length) {
+      const table = element("table", "skill-details");
+      const thead = element("thead");
+      const headerRow = element("tr");
+      headerRow.appendChild(element("th", "", "Category"));
+      headerRow.appendChild(element("th", "", "What It's Used For"));
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      const tbody = element("tbody");
+      entries.forEach(entry => {
+        if (!entry || (!entry.category && !entry.purpose)) return;
+        const row = element("tr");
+        row.appendChild(element("td", "", entry.category || ""));
+        row.appendChild(element("td", "", entry.purpose || ""));
+        tbody.appendChild(row);
+      });
+      table.appendChild(tbody);
+      card.appendChild(table);
+    }
+
     container.appendChild(card);
   });
 }
