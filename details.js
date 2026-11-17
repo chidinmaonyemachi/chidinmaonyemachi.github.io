@@ -13,10 +13,8 @@ async function load(){
   const isProject=type==="project",folder=isProject?"content/projects":"content/certifications";
   document.getElementById("backLink").href=isProject?"index.html#projects":"index.html#certifications";
   document.getElementById("backLink").textContent=isProject?"← Back to projects":"← Back to certifications";
-  const treeResponse=await fetch(`${API_ROOT}/git/trees/${BRANCH}?recursive=1`,{cache:"no-store"});if(!treeResponse.ok)throw new Error("Could not retrieve portfolio records. Please try again shortly.");
-  const tree=await treeResponse.json(),file=(tree.tree||[]).find(item=>item.type==="blob"&&item.path.startsWith(folder+"/")&&item.path.endsWith(`/${slug}.json`)&&item.path.split("/").length===3);
-  if(!file)throw new Error("This entry could not be found. Check that it has been saved and published in Pages CMS.");
-  const response=await fetch(`${RAW_ROOT}/${file.path}`,{cache:"no-store"});if(!response.ok)throw new Error("Could not load this entry. Please try again shortly.");
+  const response=await fetch(`${RAW_ROOT}/${folder}/${encodeURIComponent(slug)}.json`,{cache:"no-store"});
+  if(!response.ok)throw new Error(response.status===404?"This entry could not be found. Check that it has been saved and published in Pages CMS.":"Could not load this entry. Please try again shortly.");
   const raw=await response.json(),record=Array.isArray(raw)?raw[0]:raw;if(!record)throw new Error("This portfolio entry is empty.");
   const title=record.title||record.name||"Portfolio details";document.title=`${title} | Chidinma Onyemachi`;root.replaceChildren();
   root.appendChild(node("div","eyebrow",isProject?(record.category||"Project case study"):"Certificate"));
