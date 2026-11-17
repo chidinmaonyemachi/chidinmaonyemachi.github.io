@@ -21,10 +21,10 @@
 <main class="wrap content" id="detailContent"><p class="error">Loading details…</p></main>
 <footer><div class="wrap">© <span id="year"></span> Chidinma Onyemachi</div></footer>
 <script>
-const root=document.documentElement,toggle=document.getElementById("themeToggle"),saved=localStorage.getItem("portfolio-theme");if(saved)root.dataset.theme=saved;function updateTheme(){toggle.textContent=root.dataset.theme==="dark"?"☼ Light":"☾ Dark"}updateTheme();toggle.addEventListener("click",()=>{root.dataset.theme=root.dataset.theme==="dark"?"light":"dark";localStorage.setItem("portfolio-theme",root.dataset.theme);updateTheme()});document.getElementById("year").textContent=new Date().getFullYear();
+const detailRoot=document.documentElement,toggle=document.getElementById("themeToggle"),saved=localStorage.getItem("portfolio-theme");if(saved)detailRoot.dataset.theme=saved;function updateTheme(){toggle.textContent=detailRoot.dataset.theme==="dark"?"☼ Light":"☾ Dark"}updateTheme();toggle.addEventListener("click",()=>{detailRoot.dataset.theme=detailRoot.dataset.theme==="dark"?"light":"dark";localStorage.setItem("portfolio-theme",detailRoot.dataset.theme);updateTheme()});document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 <script>
-const params=new URLSearchParams(location.search),type=params.get("type"),slug=params.get("slug"),root=document.getElementById("detailContent");
+const params=new URLSearchParams(location.search),type=params.get("type"),slug=params.get("slug"),detailRoot=document.getElementById("detailContent");
 function node(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
 function safeURL(value){if(typeof value!=="string"||!value.trim())return "";try{const u=new URL(value,location.origin);return ["https:","http:"].includes(u.protocol)?u.href:"";}catch(_){return "";}}
 function addSection(container,title,value,full=false){if(!value||(!Array.isArray(value)&&!String(value).trim()))return;const box=node("section",`detail-section${full?" full":""}`);box.appendChild(node("h2","",title));if(Array.isArray(value)){const ul=node("ul");value.filter(item=>item!==null&&item!==undefined&&String(item).trim()).forEach(item=>ul.appendChild(node("li","",String(item))));if(!ul.children.length)return;box.appendChild(ul);}else box.appendChild(node("p","",String(value)));container.appendChild(box);}
@@ -40,13 +40,13 @@ async function load(){
   const response=await fetch(`${folder}/${encodeURIComponent(slug)}.json`,{cache:"no-store"});
   if(!response.ok)throw new Error(response.status===404?"This entry could not be found. Check that it has been saved and published in Pages CMS.":"Could not load this entry. Please try again shortly.");
   const raw=await response.json(),record=Array.isArray(raw)?raw[0]:raw;if(!record)throw new Error("This portfolio entry is empty.");
-  const title=record.title||record.name||"Portfolio details";document.title=`${title} | Chidinma Onyemachi`;root.replaceChildren();
-  root.appendChild(node("div","eyebrow",isProject?(record.category||"Project case study"):"Certificate"));
-  root.appendChild(node("h1","",title));
+  const title=record.title||record.name||"Portfolio details";document.title=`${title} | Chidinma Onyemachi`;detailRoot.replaceChildren();
+  detailRoot.appendChild(node("div","eyebrow",isProject?(record.category||"Project case study"):"Certificate"));
+  detailRoot.appendChild(node("h1","",title));
   const meta=node("div","meta-row");if(isProject){if(record.category)meta.appendChild(node("span","meta-chip",record.category));(Array.isArray(record.tools)?record.tools:[]).slice(0,5).forEach(tool=>meta.appendChild(node("span","meta-chip",tool)));}else{if(record.issuer)meta.appendChild(node("span","meta-chip",record.issuer));if(record.date)meta.appendChild(node("span","meta-chip",record.date));}
-  if(meta.children.length)root.appendChild(meta);
-  const summary=isProject?(record.overview||record.description):record.description;if(summary)root.appendChild(node("p","intro",summary));
-  addPreview(root,record.image,isProject?`${title} dashboard screenshot`:`${title} certificate preview`,isProject?"Dashboard preview · Select the image to view it at full size.":"Certificate preview · Select the image to view it at full size.",!isProject);
+  if(meta.children.length)detailRoot.appendChild(meta);
+  const summary=isProject?(record.overview||record.description):record.description;if(summary)detailRoot.appendChild(node("p","intro",summary));
+  addPreview(detailRoot,record.image,isProject?`${title} dashboard screenshot`:`${title} certificate preview`,isProject?"Dashboard preview · Select the image to view it at full size.":"Certificate preview · Select the image to view it at full size.",!isProject);
   const grid=node("div","detail-grid");
   if(isProject){
     addSection(grid,"Business problem",record.businessProblem);
@@ -56,20 +56,20 @@ async function load(){
     addSection(grid,"Key findings",record.keyFindings);
     addSection(grid,"Recommendations",record.recommendations);
     addSection(grid,"Outcome and learning",record.outcome,true);
-    if(grid.children.length)root.appendChild(grid);
-    addGallery(root,Array.isArray(record.additionalImages)?record.additionalImages:[]);
-    addTags(root,"Tools and technologies",record.tools);
+    if(grid.children.length)detailRoot.appendChild(grid);
+    addGallery(detailRoot,Array.isArray(record.additionalImages)?record.additionalImages:[]);
+    addTags(detailRoot,"Tools and technologies",record.tools);
   }else{
     addSection(grid,"About this certification",record.description,true);
     addSection(grid,"Skills and topics covered",record.skillsGained,true);
-    if(grid.children.length)root.appendChild(grid);
+    if(grid.children.length)detailRoot.appendChild(grid);
   }
   const actions=node("div","actions");
   if(isProject){addAction(actions,"View GitHub repository ↗",record.githubUrl,true);addAction(actions,"Open live dashboard ↗",record.dashboardUrl);addAction(actions,"Read full case study ↗",record.caseStudyUrl);}
   else addAction(actions,"Verify credential ↗",record.credentialUrl,true);
-  if(actions.children.length)root.appendChild(actions);
+  if(actions.children.length)detailRoot.appendChild(actions);
 }
-load().catch(error=>{root.replaceChildren(node("h1","","Details unavailable"),node("p","error",error.message));const back=node("a","btn","← Return to portfolio");back.href=type==="certification"?"index.html#certifications":"index.html#projects";root.appendChild(back);});
+load().catch(error=>{detailRoot.replaceChildren(node("h1","","Details unavailable"),node("p","error",error.message));const back=node("a","btn","← Return to portfolio");back.href=type==="certification"?"index.html#certifications":"index.html#projects";detailRoot.appendChild(back);});
 </script>
 </body>
 </html>
