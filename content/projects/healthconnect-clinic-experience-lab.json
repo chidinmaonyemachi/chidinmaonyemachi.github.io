@@ -7,8 +7,21 @@
     "Microsoft Excel",
     "Power BI",
     "Insight Generation and Reporting",
-    "Dashboard Development"
+    "Dashboard Development",
+    "Data Visualization",
+    "KPI Development and Tracking",
+    "Exploratory Data Analysis (EDA)",
+    "Data Cleaning and Transformation"
   ],
   "featured": false,
-  "published": false
+  "published": false,
+  "methodology": [
+    "I tested the dashboard and analysis across different segments to validate the findings:\nReminder Status × Appointment Type\nAppointment Type × Previous No-Show History\nPrevious No-Show History × Booking Lead Time\nThis helped me identify where interpretations needed refinement and where findings remained consistent."
+  ],
+  "keyFindings": [
+    "I tested the dashboard and analysis across different segments to validate the findings:\nReminder Status × Appointment Type\nAppointment Type × Previous No-Show History\nPrevious No-Show History × Booking Lead Time\nThis helped me identify where interpretations needed refinement and where findings remained consistent."
+  ],
+  "outcome": "Good analytics isn't just about finding patterns. It's about testing them, questioning them, and communicating them responsibly.",
+  "githubUrl": "https://github.com/chidinmaonyemachi/HealthConnect-Appontment",
+  "dashboardUrl": "https://github.com/chidinmaonyemachi/HealthConnect-Appontment/blob/main/Dashboard/HealthConnectDashboard.png"
 }
