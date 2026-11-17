@@ -203,6 +203,48 @@ content:
         type: string
         list: true
 
+  - name: experience
+    label: Experience
+    type: collection
+    path: content/experience
+    format: json
+    filename: "{primary}.json"
+    view:
+      primary: organisation
+    fields:
+      - name: organisation
+        label: Organisation
+        type: string
+      - name: role
+        label: Job title / Role
+        type: string
+      - name: employmentType
+        label: Employment type
+        type: string
+      - name: location
+        label: Location
+        type: string
+      - name: startDate
+        label: Start date
+        type: string
+      - name: endDate
+        label: End date
+        type: string
+      - name: isCurrent
+        label: Currently working here
+        type: boolean
+      - name: description
+        label: Role description
+        type: text
+      - name: responsibilities
+        label: Responsibilities
+        type: text
+        list: true
+      - name: tools
+        label: Tools & skills
+        type: string
+        list: true
+
   - name: certifications
     label: Certifications
     type: collection
