@@ -219,6 +219,7 @@ function renderSkills(skills) {
       const table = element("table", "skill-details");
       const thead = element("thead");
       const headerRow = element("tr");
+      headerRow.appendChild(element("th", "", "Skill Name"));
       headerRow.appendChild(element("th", "", "Category"));
       headerRow.appendChild(element("th", "", "Primary Purpose"));
       thead.appendChild(headerRow);
@@ -226,8 +227,9 @@ function renderSkills(skills) {
 
       const tbody = element("tbody");
       keySkills.forEach(entry => {
-        if (!entry || (!entry.category && !entry.purpose)) return;
+        if (!entry || (!entry.skillName && !entry.category && !entry.purpose)) return;
         const row = element("tr");
+        row.appendChild(element("td", "", entry.skillName || ""));
         row.appendChild(element("td", "", entry.category || ""));
         row.appendChild(element("td", "", entry.purpose || ""));
         tbody.appendChild(row);
@@ -236,9 +238,6 @@ function renderSkills(skills) {
       card.appendChild(table);
     }
 
-    if (skill.proficiency) {
-      card.appendChild(element("p", "skill-proficiency", `Proficiency: ${skill.proficiency}`));
-    }
 
     container.appendChild(card);
   });
