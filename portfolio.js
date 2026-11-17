@@ -115,6 +115,10 @@ function renderProfile(profile, settings) {
   const cvLink = document.getElementById("downloadCV");
   if (cvLink && profile.cv) {
     cvLink.href = profile.cv;
+    cvLink.target = "_blank";
+    cvLink.rel = "noopener noreferrer";
+    cvLink.removeAttribute("download");
+    cvLink.textContent = "View CV ↗";
   }
 
   const aboutCopy = document.querySelector("#about .copy");
