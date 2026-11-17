@@ -1,4 +1,8 @@
 {
-  "name": "Tableau",
-  "keySkills": []
+  "coreSkill": "Data Visualization",
+  "toolsUsed": [
+    "Power BI",
+    "Tableau",
+    "Microsoft Excel"
+  ]
 }
