@@ -21,7 +21,7 @@
 <main class="wrap content" id="detailContent"><p class="error">Loading details…</p></main>
 <footer><div class="wrap">© <span id="year"></span> Chidinma Onyemachi</div></footer>
 <script>
-const detailRoot=document.documentElement,toggle=document.getElementById("themeToggle"),saved=localStorage.getItem("portfolio-theme");if(saved)detailRoot.dataset.theme=saved;function updateTheme(){toggle.textContent=detailRoot.dataset.theme==="dark"?"☼ Light":"☾ Dark"}updateTheme();toggle.addEventListener("click",()=>{detailRoot.dataset.theme=detailRoot.dataset.theme==="dark"?"light":"dark";localStorage.setItem("portfolio-theme",detailRoot.dataset.theme);updateTheme()});document.getElementById("year").textContent=new Date().getFullYear();
+const themeRoot=document.documentElement,toggle=document.getElementById("themeToggle"),saved=localStorage.getItem("portfolio-theme");if(saved)themeRoot.dataset.theme=saved;function updateTheme(){toggle.textContent=themeRoot.dataset.theme==="dark"?"☼ Light":"☾ Dark"}updateTheme();toggle.addEventListener("click",()=>{themeRoot.dataset.theme=themeRoot.dataset.theme==="dark"?"light":"dark";localStorage.setItem("portfolio-theme",themeRoot.dataset.theme);updateTheme()});document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 <script>
 const params=new URLSearchParams(location.search),type=params.get("type"),slug=params.get("slug"),detailRoot=document.getElementById("detailContent");
