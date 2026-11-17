@@ -16,7 +16,7 @@ async function load(){
   const isProject=type==="project";document.title=`${record.title||record.name} | Chidinma Onyemachi`;
   root.replaceChildren();root.appendChild(node("div","eyebrow",isProject?(record.category||"Project case study"):"Certification"));
   root.appendChild(node("h1","",record.title||record.name||"Portfolio details"));
-  const meta=[record.issuer,record.date?new Date(`${record.date}T00:00:00`).toLocaleDateString(undefined,{month:"long",year:"numeric"}):""].filter(Boolean).join(" · ");
+  const meta=[record.issuer,record.date||""].filter(Boolean).join(" · ");
   if(meta)root.appendChild(node("p","meta",meta));
   if(record.image){const image=node("img","hero-image");image.src=record.image;image.alt=isProject?`${record.title} dashboard screenshot`:`${record.name} certificate preview`;root.appendChild(image);root.appendChild(node("p","image-caption",isProject?"Dashboard screenshot preview — select the image to open it at full size.":"Certificate preview — select the image to open it at full size."));image.style.cursor="zoom-in";image.addEventListener("click",()=>window.open(safeURL(record.image),"_blank","noopener"));}
   const grid=node("div","detail-grid");
