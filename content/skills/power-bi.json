@@ -1,4 +1,7 @@
 {
-  "name": "Power BI",
-  "keySkills": []
+  "coreSkill": "Dashboard Development",
+  "toolsUsed": [
+    "Power BI",
+    "Tableau"
+  ]
 }
