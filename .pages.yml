@@ -1,14 +1,24 @@
 
 media:
-  input: assets/uploads
-  output: /assets/uploads
-  categories:
-    - image
-  extensions:
-    - jpg
-    - jpeg
-    - png
-    - webp
+  - name: images
+    label: Images
+    input: assets/uploads
+    output: /assets/uploads
+    categories:
+      - image
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - webp
+  - name: documents
+    label: Documents
+    input: assets/uploads
+    output: /assets/uploads
+    categories:
+      - document
+    extensions:
+      - pdf
 
 content:
   - name: profile
@@ -29,9 +39,19 @@ content:
       - name: photo
         label: Profile photograph
         type: image
+        options:
+          media: images
       - name: location
         label: Location
         type: string
+      - name: cv
+        label: Downloadable CV (PDF)
+        type: file
+        options:
+          media: documents
+          path: assets/uploads
+          extensions:
+            - pdf
 
   - name: contact
     label: Contact
