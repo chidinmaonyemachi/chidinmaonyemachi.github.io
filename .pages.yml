@@ -1,4 +1,3 @@
-
 media:
   input: assets/uploads
   output: /assets/uploads
@@ -100,15 +99,47 @@ content:
         label: Category
         type: string
       - name: description
-        label: Description
+        label: Short project summary
+        type: text
+      - name: overview
+        label: Detailed project overview
+        type: text
+      - name: businessProblem
+        label: Problem or business question
+        type: text
+      - name: objectives
+        label: Project objectives
+        type: text
+        list: true
+      - name: dataset
+        label: Dataset and scope
+        type: text
+      - name: methodology
+        label: Methods and workflow
+        type: text
+        list: true
+      - name: keyFindings
+        label: Key findings
+        type: text
+        list: true
+      - name: recommendations
+        label: Recommendations
+        type: text
+        list: true
+      - name: outcome
+        label: Outcome and learning
         type: text
       - name: tools
         label: Tools and technologies
         type: string
         list: true
       - name: image
-        label: Project screenshot
+        label: Dashboard screenshot
         type: image
+      - name: additionalImages
+        label: Additional project screenshots
+        type: image
+        list: true
       - name: githubUrl
         label: GitHub URL
         type: string
@@ -116,7 +147,7 @@ content:
         label: Dashboard URL
         type: string
       - name: caseStudyUrl
-        label: Case study URL
+        label: External case study URL
         type: string
       - name: featured
         label: Feature on homepage
@@ -162,8 +193,15 @@ content:
       - name: date
         label: Date obtained
         type: date
+      - name: description
+        label: Certificate description
+        type: text
+      - name: skillsGained
+        label: Skills or topics covered
+        type: string
+        list: true
       - name: credentialUrl
-        label: Credential URL
+        label: Credential verification URL
         type: string
       - name: image
         label: Certificate image

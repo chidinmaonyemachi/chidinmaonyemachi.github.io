@@ -10,219 +10,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      color-scheme: dark;
-      --bg:#0b1220; --surface:#111c2e; --surface-2:#17243a; --text:#edf4ff;
-      --muted:#a6b5ca; --line:rgba(180,202,230,.15); --accent:#55b8f5;
-      --accent-2:#8b9cff; --shadow:0 22px 65px rgba(0,0,0,.24);
-    }
-    [data-theme="light"] {
-      color-scheme:light; --bg:#f5f8fc; --surface:#fff; --surface-2:#edf3fa;
-      --text:#142238; --muted:#5c6b80; --line:rgba(32,58,89,.14);
-      --accent:#087dbb; --accent-2:#5267d9; --shadow:0 18px 55px rgba(27,55,87,.09);
-    }
-    *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:86px}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;line-height:1.65;transition:background .25s,color .25s}
-    a{color:inherit;text-decoration:none} button{font:inherit}
-    .wrap{width:min(1120px,calc(100% - 42px));margin:auto}
-    .topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-    nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand{font:800 17px Manrope,sans-serif;letter-spacing:-.5px}.brand span{color:var(--accent)}
-    .navlinks{display:flex;align-items:center;gap:22px;color:var(--muted);font-size:13px}
-    .navlinks a:hover,.textlink:hover{color:var(--accent)}
-    .theme-btn,.menu-btn{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:9px 13px;cursor:pointer}
-    .menu-btn{display:none}
-    section{padding:92px 0}
-    .hero{padding:105px 0 90px;position:relative;overflow:hidden}
-    .hero:before{content:"";position:absolute;width:480px;height:480px;right:-120px;top:-170px;border-radius:50%;background:radial-gradient(circle,rgba(85,184,245,.18),transparent 68%);pointer-events:none}
-    .eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:11px}
-    h1,h2,h3{font-family:Manrope,sans-serif;line-height:1.15;letter-spacing:-1px}
-    h1{font-size:clamp(42px,7vw,76px);max-width:780px;margin:20px 0}
-    h1 .gradient{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-    h2{font-size:clamp(30px,4vw,43px);margin:12px 0 15px}
-    h3{font-size:19px;margin:0 0 9px;letter-spacing:-.4px}
-    .lead{font-size:18px;color:var(--muted);max-width:690px}
-    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:10px;font-weight:700;font-size:14px;border:1px solid var(--line);transition:transform .2s,background .2s}
-    .btn:hover{transform:translateY(-2px)}.primary{background:var(--accent);color:#061321;border-color:var(--accent)}.secondary{background:var(--surface);color:var(--text)}
-    .hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:42px;color:var(--muted);font-size:13px}
-    .hero-meta span:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#45c78b;margin:0 9px 1px 0}
-    .section-head{max-width:680px;margin-bottom:34px}.section-head p,.copy{color:var(--muted)}
-
-    .hero-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(230px,.65fr);gap:42px;align-items:center}
-    .profile-frame{width:min(100%,330px);justify-self:end;aspect-ratio:4/5;overflow:hidden;border-radius:28px;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--surface-2)}
-    .profile-frame img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
-    .project-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:13px;font-weight:700}
-    .project-links a{color:var(--accent)}
-    .project-links a:hover{text-decoration:underline}
-    @media(max-width:800px){.hero-layout{grid-template-columns:1fr}.profile-frame{justify-self:start;width:min(72%,290px);grid-row:1}}
-    .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:start}
-    .panel,.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
-    .panel{padding:26px}.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .stat{padding:18px;background:var(--surface-2);border-radius:13px}.stat strong{display:block;font:800 24px Manrope;color:var(--accent)}.stat small{color:var(--muted)}
-    .tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.tag{font-size:12px;padding:7px 11px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
-    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .skill-card{padding:22px}.skill-card p{color:var(--muted);font-size:13px;margin:0}
-    .skill-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--surface-2);color:var(--accent);font-weight:800;margin-bottom:17px}
-    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .project{padding:24px;display:flex;flex-direction:column;min-height:260px}
-    .project-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:22px}
-    .project-type{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1.4px;font-weight:700}
-    .project p{color:var(--muted);font-size:14px;margin:0 0 15px}
-    .project .tags{margin-top:auto}.project .tag{font-size:11px}
-    .cert-list{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-    .cert{padding:19px 20px;display:flex;gap:14px;align-items:flex-start}
-    .cert-mark{flex:0 0 34px;height:34px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;color:var(--accent);font-weight:800}
-    .cert p{margin:3px 0 0;color:var(--muted);font-size:12px}
-    .timeline{border-left:1px solid var(--line);margin-left:8px;padding-left:26px}.timeline-item{position:relative;padding:0 0 28px}
-    .timeline-item:before{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:var(--accent);left:-32px;top:5px;box-shadow:0 0 0 5px var(--bg)}
-    .timeline-item p{color:var(--muted);margin:7px 0 0;font-size:14px}
-    .contact-box{padding:38px;display:flex;align-items:center;justify-content:space-between;gap:25px;background:linear-gradient(120deg,var(--surface),var(--surface-2))}
-    .contact-box p{color:var(--muted);max-width:550px}
-    footer{padding:26px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
-    .footer-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .note{font-size:12px;color:var(--muted);margin-top:16px}
-    @media(max-width:800px){.navlinks{display:none;position:absolute;top:71px;left:0;right:0;padding:18px 22px;background:var(--surface);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}.navlinks.open{display:flex}.menu-btn{display:inline-block}.about-grid{grid-template-columns:1fr}.skills-grid{grid-template-columns:1fr 1fr}.contact-box{align-items:flex-start;flex-direction:column}}
-    @media(max-width:560px){.wrap{width:min(100% - 30px,1120px)}section{padding:68px 0}.hero{padding:78px 0 65px}.skills-grid,.projects-grid,.cert-list{grid-template-columns:1fr}.contact-box{padding:25px}.hero-meta{gap:12px;flex-direction:column}}
+    :root {color-scheme:dark;--bg:#0b1220;--surface:#111c2e;--surface-2:#17243a;--text:#edf4ff;--muted:#a6b5ca;--line:rgba(180,202,230,.15);--accent:#55b8f5;--accent-2:#8b9cff;--shadow:0 22px 65px rgba(0,0,0,.24)}
+    [data-theme="light"]{color-scheme:light;--bg:#f5f8fc;--surface:#fff;--surface-2:#edf3fa;--text:#142238;--muted:#5c6b80;--line:rgba(32,58,89,.14);--accent:#087dbb;--accent-2:#5267d9;--shadow:0 18px 55px rgba(27,55,87,.09)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:86px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;line-height:1.65;transition:background .25s,color .25s}a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:min(1120px,calc(100% - 42px));margin:auto}.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font:800 17px Manrope,sans-serif;letter-spacing:-.5px}.brand span{color:var(--accent)}.navlinks{display:flex;align-items:center;gap:22px;color:var(--muted);font-size:13px}.navlinks a:hover,.textlink:hover{color:var(--accent)}.theme-btn,.menu-btn{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:9px 13px;cursor:pointer}.menu-btn{display:none}section{padding:92px 0}.hero{padding:105px 0 90px;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;width:480px;height:480px;right:-120px;top:-170px;border-radius:50%;background:radial-gradient(circle,rgba(85,184,245,.18),transparent 68%);pointer-events:none}.eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:11px}h1,h2,h3{font-family:Manrope,sans-serif;line-height:1.15;letter-spacing:-1px}h1{font-size:clamp(42px,7vw,76px);max-width:780px;margin:20px 0}h1 .gradient{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}h2{font-size:clamp(30px,4vw,43px);margin:12px 0 15px}h3{font-size:19px;margin:0 0 9px;letter-spacing:-.4px}.lead{font-size:18px;color:var(--muted);max-width:690px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:10px;font-weight:700;font-size:14px;border:1px solid var(--line);transition:transform .2s,background .2s}.btn:hover{transform:translateY(-2px)}.primary{background:var(--accent);color:#061321;border-color:var(--accent)}.secondary{background:var(--surface);color:var(--text)}.hero-meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:42px;color:var(--muted);font-size:13px}.hero-meta span:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#45c78b;margin:0 9px 1px 0}.section-head{max-width:680px;margin-bottom:34px}.section-head p,.copy{color:var(--muted)}.hero-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(230px,.65fr);gap:42px;align-items:center}.profile-frame{width:min(100%,330px);justify-self:end;aspect-ratio:4/5;overflow:hidden;border-radius:28px;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--surface-2)}.profile-frame img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}.project-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;font-size:13px;font-weight:700}.project-links a{color:var(--accent)}.project-links a:hover{text-decoration:underline}@media(max-width:800px){.hero-layout{grid-template-columns:1fr}.profile-frame{justify-self:start;width:min(72%,290px);grid-row:1}}.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:start}.panel,.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.panel{padding:26px}.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{padding:18px;background:var(--surface-2);border-radius:13px}.stat strong{display:block;font:800 24px Manrope;color:var(--accent)}.stat small{color:var(--muted)}.tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.tag{font-size:12px;padding:7px 11px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.skill-card{padding:22px}.skill-card p{color:var(--muted);font-size:13px;margin:0}.skill-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--surface-2);color:var(--accent);font-weight:800;margin-bottom:17px}.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.project{padding:24px;display:flex;flex-direction:column;min-height:260px}.project-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:22px}.project-type{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1.4px;font-weight:700}.project p{color:var(--muted);font-size:14px;margin:0 0 15px}.project .tags{margin-top:auto}.project .tag{font-size:11px}.project-preview{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-bottom:18px;border:1px solid var(--line)}.project-cta,.cert-cta{display:inline-flex;margin-top:18px;color:var(--accent);font-size:13px;font-weight:800}.project-cta:hover,.cert-cta:hover{text-decoration:underline}.project{transition:transform .2s,border-color .2s}.project:hover,.cert:hover{transform:translateY(-3px);border-color:var(--accent)}.cert-list{display:grid;grid-template-columns:1fr 1fr;gap:13px}.cert{padding:19px 20px;display:flex;gap:14px;align-items:flex-start;transition:transform .2s,border-color .2s}.cert-mark{flex:0 0 34px;height:34px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;color:var(--accent);font-weight:800}.cert p{margin:3px 0 0;color:var(--muted);font-size:12px}.cert-image-thumb{width:64px;height:64px;object-fit:contain;border-radius:8px}.certifications-eyebrow{font-size:15px;font-weight:800;letter-spacing:1.5px}.about-highlight{font-weight:800;color:var(--text)}.timeline{border-left:1px solid var(--line);margin-left:8px;padding-left:26px}.timeline-item{position:relative;padding:0 0 28px}.timeline-item:before{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:var(--accent);left:-32px;top:5px;box-shadow:0 0 0 5px var(--bg)}.timeline-item p{color:var(--muted);margin:7px 0 0;font-size:14px}.contact-box{padding:38px;display:flex;align-items:center;justify-content:space-between;gap:25px;background:linear-gradient(120deg,var(--surface),var(--surface-2))}.contact-box p{color:var(--muted);max-width:550px}footer{padding:26px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.note{font-size:12px;color:var(--muted);margin-top:16px}@media(max-width:800px){.navlinks{display:none;position:absolute;top:71px;left:0;right:0;padding:18px 22px;background:var(--surface);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}.navlinks.open{display:flex}.menu-btn{display:inline-block}.about-grid{grid-template-columns:1fr}.skills-grid{grid-template-columns:1fr 1fr}.contact-box{align-items:flex-start;flex-direction:column}}@media(max-width:560px){.wrap{width:min(100% - 30px,1120px)}section{padding:68px 0}.hero{padding:78px 0 65px}.skills-grid,.projects-grid,.cert-list{grid-template-columns:1fr}.contact-box{padding:25px}.hero-meta{gap:12px;flex-direction:column}}
   </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="wrap">
-    <nav aria-label="Main navigation">
-      <a class="brand" href="#home">Chidinma<span>.</span></a>
-      <div class="navlinks" id="navlinks">
-        <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
-        <a href="#certifications">Certifications</a><a href="#experience" hidden>Experience</a><a href="#contact">Contact</a>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">☼ Light</button>
-        <button class="menu-btn" id="menuToggle" type="button" aria-label="Open navigation">☰</button>
-      </div>
-    </nav>
-  </div>
-</header>
-
+<header class="topbar"><div class="wrap"><nav aria-label="Main navigation"><a class="brand" href="#home">Chidinma<span>.</span></a><div class="navlinks" id="navlinks"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#certifications">Certifications</a><a href="#experience" hidden>Experience</a><a href="#contact">Contact</a></div><div style="display:flex;gap:8px"><button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">☼ Light</button><button class="menu-btn" id="menuToggle" type="button" aria-label="Open navigation">☰</button></div></nav></div></header>
 <main>
-  <section class="hero" id="home">
-    <div class="wrap hero-layout">
-      <div>
-        <div class="eyebrow">Data Analytics · Business Intelligence</div>
-        <h1>Turning data into <span class="gradient">clear decisions.</span></h1>
-        <p class="lead">I'm Chidinma Onyemachi, a Data Analyst interested in transforming raw data into meaningful insights, practical reports and clear visual stories that support better decisions.</p>
-        <div class="actions">
-          <a class="btn primary" href="#projects">Explore my projects ↗</a>
-          <a class="btn secondary" href="#contact">Get in touch</a>
-        </div>
-        <div class="hero-meta"><span>Power BI & reporting</span><span>SQL & data analysis</span><span>Open to early-career opportunities</span></div>
-      </div>
-      <div class="profile-frame"><img src="assets/profile.jpg" alt="Professional portrait of Chidinma Onyemachi"></div>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow">A little about me</div><h2>Curious about data. Focused on impact.</h2></div>
-      <div class="about-grid">
-        <div class="copy">
-          <p>I enjoy exploring datasets, identifying patterns and communicating findings in a way that makes information easier to understand and act on. My work and learning have covered business, customer, healthcare, energy, agriculture and operational data.</p>
-          <p>My approach combines analytical thinking with practical tools: preparing and querying data, building visual reports, investigating performance indicators and translating results into useful observations.</p>
-          <p>I'm continuing to strengthen my analytical practice through hands-on projects and professional learning, and I'm interested in opportunities where I can contribute to data-informed decisions.</p>
-        </div>
-        <div class="panel">
-          <div class="stat-grid">
-            <div class="stat"><strong>Power BI</strong><small>Dashboards & reporting</small></div>
-            <div class="stat"><strong>SQL</strong><small>Querying & analysis</small></div>
-            <div class="stat"><strong>Excel</strong><small>Cleaning & analysis</small></div>
-            <div class="stat"><strong>BI</strong><small>Insight communication</small></div>
-          </div>
-          <div class="tags"><span class="tag">Analytical thinking</span><span class="tag">Data storytelling</span><span class="tag">Problem solving</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills" style="background:var(--surface);border-block:1px solid var(--line)">
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow">Toolkit</div><h2>Skills & tools</h2><p>Tools and techniques I use across data preparation, analysis, visualisation and reporting.</p></div>
-      <div class="skills-grid">
-        <article class="card skill-card"><div class="skill-icon">P</div><h3>Power BI</h3><p>Interactive dashboards, data modelling, DAX, Power Query and KPI reporting.</p></article>
-        <article class="card skill-card"><div class="skill-icon">SQL</div><h3>SQL</h3><p>Data querying, filtering, joins, aggregations and analytical exploration.</p></article>
-        <article class="card skill-card"><div class="skill-icon">X</div><h3>Microsoft Excel</h3><p>Data cleaning, formulas, analysis, summaries and reporting.</p></article>
-        <article class="card skill-card"><div class="skill-icon">T</div><h3>Tableau</h3><p>Data visualisation and communicating patterns through charts and dashboards.</p></article>
-        <article class="card skill-card"><div class="skill-icon">DQ</div><h3>Data preparation</h3><p>Cleaning, transformation, validation and structuring data for analysis.</p></article>
-        <article class="card skill-card"><div class="skill-icon">KPI</div><h3>Reporting & insights</h3><p>Performance tracking, KPI interpretation and evidence-based recommendations.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow">Selected work</div><h2>Projects & case studies</h2><p>A selection of analytical projects across different domains. Each project can be expanded with a dashboard image, dataset, methodology and full findings.</p></div>
-      <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
-      <p class="note">Project descriptions are concise portfolio summaries. Add verified dashboard screenshots, repository links and detailed findings before using each project as a formal case study.</p>
-    </div>
-  </section>
-
-  <section id="certifications" style="background:var(--surface);border-block:1px solid var(--line)">
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow">Learning & development</div><h2>Certifications</h2><p>Selected training and professional learning milestones.</p></div>
-      <div class="cert-list">
-        <article class="card cert"><div class="cert-mark">D</div><div><h3>Deloitte Australia Data Analytics Job Simulation</h3><p>Forage · April 2026</p></div></article>
-        <article class="card cert"><div class="cert-mark">C</div><div><h3>Cisco Data Analytics Essentials</h3><p>Cisco · January 2026</p></div></article>
-        <article class="card cert"><div class="cert-mark">DA</div><div><h3>Certified Data Analyst</h3><p>DataSimHQ</p></div></article>
-        <article class="card cert"><div class="cert-mark">A</div><div><h3>Data Analytics Internship</h3><p>AnalystLab Africa · Certificate of Participation · 2026</p></div></article>
-        <article class="card cert"><div class="cert-mark">D</div><div><h3>Managing with Data and KPIs</h3><p>Dotmac Fiber</p></div></article>
-        <article class="card cert"><div class="cert-mark">3M</div><div><h3>AI / Machine Learning Programme</h3><p>3MTT · Completion certificate · 5 September 2026</p></div></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience" hidden>
-    <div class="wrap">
-      <div class="section-head"><div class="eyebrow">Professional background</div><h2>Experience</h2><p>Practical experience and applied learning relevant to data, reporting and operations.</p></div>
-      <div class="timeline">
-        <div class="timeline-item"><h3>Dotmac Technologies Limited</h3><div class="eyebrow">NYSC / PPA experience · Nigeria</div><p>Exposure to operational and customer-facing environments, with an interest in using data and KPIs to understand service performance and support informed decisions. Add your exact role title, dates and verified responsibilities here.</p></div>
-        <div class="timeline-item"><h3>Data Analytics Projects & Practical Training</h3><div class="eyebrow">Project-based experience</div><p>Applied analytical tools and techniques through hands-on projects involving healthcare, telecommunications, retail, food prices, energy and operational datasets.</p></div>
-      </div>
-      <p class="note">The experience section is intentionally conservative. Replace the role wording and add exact dates and responsibilities from your CV so the published version is fully accurate.</p>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="wrap">
-      <div class="contact-box panel">
-        <div><div class="eyebrow">Let's connect</div><h2>Have a data challenge?</h2><p>I'm interested in connecting with teams and professionals working with data, analytics and business intelligence. Reach out or explore my work below.</p>
-          <div class="actions">
-            <a class="btn primary" href="mailto:chidinmaa.onyemachi@gmail.com">Email me</a>
-            <a class="btn secondary" href="https://www.linkedin.com/in/chidinma-onyemachi-833275345/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a class="btn secondary" href="https://github.com/chidinmaonyemachi" target="_blank" rel="noreferrer">GitHub ↗</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="hero" id="home"><div class="wrap hero-layout"><div><div class="eyebrow">Data Analytics · Business Intelligence</div><h1>Turning data into <span class="gradient">clear decisions.</span></h1><p class="lead">I'm Chidinma Onyemachi, a Data Analyst interested in transforming raw data into meaningful insights, practical reports and clear visual stories that support better decisions.</p><div class="actions"><a class="btn primary" href="#projects">Explore my projects ↗</a><a class="btn secondary" href="#contact">Get in touch</a></div><div class="hero-meta"><span>Power BI & reporting</span><span>SQL & data analysis</span><span>Open to early-career opportunities</span></div></div><div class="profile-frame"><img src="assets/profile.jpg" alt="Professional portrait of Chidinma Onyemachi"></div></div></section>
+  <section id="about"><div class="wrap"><div class="section-head"><div class="eyebrow">A little about me</div><h2>Curious about data. Focused on impact.</h2></div><div class="about-grid"><div class="copy"><p>I enjoy exploring datasets, identifying patterns and communicating findings in a way that makes information easier to understand and act on. My work and learning have covered business, customer, healthcare, energy, agriculture and operational data.</p><p>My approach combines analytical thinking with practical tools: preparing and querying data, building visual reports, investigating performance indicators and translating results into useful observations.</p><p>I'm continuing to strengthen my analytical practice through hands-on projects and professional learning, and I'm interested in opportunities where I can contribute to data-informed decisions.</p></div><div class="panel"><div class="stat-grid"><div class="stat"><strong>Power BI</strong><small>Dashboards & reporting</small></div><div class="stat"><strong>SQL</strong><small>Querying & analysis</small></div><div class="stat"><strong>Excel</strong><small>Cleaning & analysis</small></div><div class="stat"><strong>BI</strong><small>Insight communication</small></div></div><div class="tags"><span class="tag">Analytical thinking</span><span class="tag">Data storytelling</span><span class="tag">Problem solving</span></div></div></div></div></section>
+  <section id="skills" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap"><div class="section-head"><div class="eyebrow">Toolkit</div><h2>Skills & tools</h2><p>Tools and techniques I use across data preparation, analysis, visualisation and reporting.</p></div><div class="skills-grid"><article class="card skill-card"><div class="skill-icon">P</div><h3>Power BI</h3><p>Interactive dashboards, data modelling, DAX, Power Query and KPI reporting.</p></article><article class="card skill-card"><div class="skill-icon">SQL</div><h3>SQL</h3><p>Data querying, filtering, joins, aggregations and analytical exploration.</p></article><article class="card skill-card"><div class="skill-icon">X</div><h3>Microsoft Excel</h3><p>Data cleaning, formulas, analysis, summaries and reporting.</p></article><article class="card skill-card"><div class="skill-icon">T</div><h3>Tableau</h3><p>Data visualisation and communicating patterns through charts and dashboards.</p></article><article class="card skill-card"><div class="skill-icon">DQ</div><h3>Data preparation</h3><p>Cleaning, transformation, validation and structuring data for analysis.</p></article><article class="card skill-card"><div class="skill-icon">KPI</div><h3>Reporting & insights</h3><p>Performance tracking, KPI interpretation and evidence-based recommendations.</p></article></div></div></section>
+  <section id="projects"><div class="wrap"><div class="section-head"><div class="eyebrow">PROJECTS</div><p>A selection of analytical projects across different domains. Select a project to preview its dashboard and explore the full case study.</p></div><div class="projects-grid" id="projectsGrid" aria-live="polite"></div></div></section>
+  <section id="certifications" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap"><div class="section-head"><div class="eyebrow certifications-eyebrow">Learning & development</div><h2>Certifications</h2><p>Selected training and professional learning milestones. Select a certificate to view its details and preview.</p></div><div class="cert-list"></div></div></section>
+  <section id="experience" hidden><div class="wrap"><div class="section-head"><div class="eyebrow">Professional background</div><h2>Experience</h2><p>Practical experience and applied learning relevant to data, reporting and operations.</p></div><div class="timeline"><div class="timeline-item"><h3>Dotmac Technologies Limited</h3><div class="eyebrow">NYSC / PPA experience · Nigeria</div><p>Exposure to operational and customer-facing environments, with an interest in using data and KPIs to understand service performance and support informed decisions. Add your exact role title, dates and verified responsibilities here.</p></div><div class="timeline-item"><h3>Data Analytics Projects & Practical Training</h3><div class="eyebrow">Project-based experience</div><p>Applied analytical tools and techniques through hands-on projects involving healthcare, telecommunications, retail, food prices, energy and operational datasets.</p></div></div><p class="note">The experience section is intentionally conservative. Replace the role wording and add exact dates and responsibilities from your CV so the published version is fully accurate.</p></div></section>
+  <section id="contact"><div class="wrap"><div class="contact-box panel"><div><div class="eyebrow">Let's connect</div><h2>Have a data challenge?</h2><p>I'm interested in connecting with teams and professionals working with data, analytics and business intelligence. Reach out or explore my work below.</p><div class="actions"><a class="btn primary" href="mailto:chidinmaa.onyemachi@gmail.com">Email me</a><a class="btn secondary" href="https://www.linkedin.com/in/chidinma-onyemachi-833275345/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a class="btn secondary" href="https://github.com/chidinmaonyemachi" target="_blank" rel="noreferrer">GitHub ↗</a></div></div></div></div></section>
 </main>
-
 <footer><div class="wrap footer-inner"><span>© <span id="year"></span> Chidinma Onyemachi</span><span>Built to make data clearer.</span></div></footer>
 <script>
-  const root = document.documentElement;
-  const themeToggle = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('portfolio-theme');
-  if (savedTheme) root.dataset.theme = savedTheme;
-  function updateThemeButton(){ themeToggle.textContent = root.dataset.theme === 'dark' ? '☼ Light' : '☾ Dark'; }
+  const root=document.documentElement,themeToggle=document.getElementById('themeToggle'),savedTheme=localStorage.getItem('portfolio-theme');
+  if(savedTheme)root.dataset.theme=savedTheme;
+  function updateThemeButton(){themeToggle.textContent=root.dataset.theme==='dark'?'☼ Light':'☾ Dark'}
   updateThemeButton();
-  themeToggle.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('portfolio-theme', root.dataset.theme);
-    updateThemeButton();
-  });
-  document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navlinks').classList.toggle('open'));
-  document.querySelectorAll('#navlinks a').forEach(a => a.addEventListener('click', () => document.getElementById('navlinks').classList.remove('open')));
-
-  document.getElementById('year').textContent = new Date().getFullYear();
+  themeToggle.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('portfolio-theme',root.dataset.theme);updateThemeButton()});
+  document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
+  document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+  document.getElementById('year').textContent=new Date().getFullYear();
 </script>
-
 <script src="portfolio.js"></script>
 </body>
 </html>
