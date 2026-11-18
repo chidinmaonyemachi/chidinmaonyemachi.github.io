@@ -21,6 +21,56 @@ media:
       - pdf
 
 content:
+  - name: home
+    label: Home Page
+    type: file
+    path: data/home.json
+    format: json
+    fields:
+      - name: title
+        label: Main title
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: introduction
+        label: Homepage introduction
+        type: text
+      - name: highlights
+        label: Hero highlights
+        type: string
+        list: true
+
+  - name: about
+    label: About Page
+    type: file
+    path: data/about.json
+    format: json
+    fields:
+      - name: headline
+        label: About page headline
+        type: string
+      - name: introduction
+        label: Introduction
+        type: text
+      - name: professionalBackground
+        label: Professional background
+        type: text
+      - name: approach
+        label: My approach to data
+        type: text
+      - name: areasOfInterest
+        label: Areas of interest
+        type: string
+        list: true
+      - name: strengths
+        label: Professional strengths
+        type: string
+        list: true
+      - name: careerGoals
+        label: Career goals
+        type: text
+
   - name: profile
     label: Profile
     type: file
@@ -33,9 +83,6 @@ content:
       - name: headline
         label: Professional headline
         type: string
-      - name: biography
-        label: About me
-        type: text
       - name: photo
         label: Profile photograph
         type: image
@@ -85,7 +132,7 @@ content:
     format: json
     fields:
       - name: showAbout
-        label: Show About section
+        label: Show About page in navigation
         type: boolean
       - name: showProjects
         label: Show Projects section
@@ -102,9 +149,6 @@ content:
       - name: showContact
         label: Show Contact section
         type: boolean
-      - name: introduction
-        label: Homepage introduction
-        type: text
 
   - name: projects
     label: Projects
