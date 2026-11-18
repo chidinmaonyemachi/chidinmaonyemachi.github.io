@@ -64,13 +64,15 @@ function addLink(container, label, value) {
 
 function setSectionVisibility(settings) {
   const sections = {
-    about: "showAbout",
     projects: "showProjects",
     skills: "showSkills",
     certifications: "showCertifications",
     experience: "showExperience",
     contact: "showContact"
   };
+
+  const aboutLink = document.querySelector('#navlinks a[href="about.html"]');
+  if (aboutLink) aboutLink.hidden = settings.showAbout === false;
 
   Object.entries(sections).forEach(([id, setting]) => {
     const section = document.getElementById(id);
@@ -87,6 +89,21 @@ function setSectionVisibility(settings) {
   });
 }
 
+function renderHome(home) {
+  if (!home) return;
+  const title = document.querySelector(".hero h1 .gradient");
+  if (title && home.title) title.textContent = home.title;
+  const tagline = document.querySelector(".hero-tagline");
+  if (tagline && home.tagline) tagline.textContent = home.tagline;
+  const lead = document.querySelector(".hero .lead");
+  if (lead && home.introduction) lead.textContent = home.introduction;
+  const highlights = document.querySelector(".hero-meta");
+  if (highlights && Array.isArray(home.highlights)) {
+    highlights.replaceChildren();
+    home.highlights.filter(Boolean).forEach(item => highlights.appendChild(element("span", "", item)));
+  }
+}
+
 function renderProfile(profile, settings) {
   const brand = document.querySelector(".brand");
   if (brand && profile.name) {
@@ -99,11 +116,6 @@ function renderProfile(profile, settings) {
   const eyebrow = document.querySelector(".hero .eyebrow");
   if (eyebrow && profile.headline) {
     eyebrow.textContent = profile.headline;
-  }
-
-  const lead = document.querySelector(".hero .lead");
-  if (lead && settings.introduction) {
-    lead.textContent = settings.introduction;
   }
 
   const photo = document.querySelector(".profile-frame img");
@@ -418,7 +430,8 @@ async function loadPortfolio() {
     const settings = await getJSON(`${RAW_ROOT}/data/settings.json`);
     setSectionVisibility(settings);
 
-    const [profile, contact, repositoryTree] = await Promise.all([
+    const [home, profile, contact, repositoryTree] = await Promise.all([
+      getJSON(`${RAW_ROOT}/data/home.json`),
       getJSON(`${RAW_ROOT}/data/profile.json`),
       getJSON(`${RAW_ROOT}/data/contact.json`),
       getJSON(`${API_ROOT}/git/trees/${BRANCH}?recursive=1`)
@@ -437,6 +450,7 @@ async function loadPortfolio() {
       loadCollection(tree, "content/experience")
     ]);
 
+    renderHome(home);
     renderProfile(profile, settings);
     renderProjects(projects);
     renderSkills(skills);
